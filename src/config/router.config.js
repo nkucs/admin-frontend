@@ -14,6 +14,7 @@ export const asyncRouterMap = [
         path: '/staff',
         name: 'staff',
         component: PageView,
+        redirect: '/staff/list',
         meta: { title: '职工管理', icon: 'dashboard', permission: [ 'dashboard' ] },  
         children: [
           {
@@ -34,6 +35,7 @@ export const asyncRouterMap = [
         path: '/student',
         name: 'student',
         component: PageView,
+        redirect: '/student/list',
         meta: { title: '学生管理', icon: 'dashboard', permission: [ 'dashboard' ] },
         children: [
           {
@@ -53,6 +55,7 @@ export const asyncRouterMap = [
       {
         path: '/permission',
         name: 'permission',
+        redirect: '/permission/list',
         component: PageView,
         meta: { title: '权限管理', icon: 'dashboard', permission: [ 'dashboard' ] },
         children: [
