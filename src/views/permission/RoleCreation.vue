@@ -7,9 +7,14 @@
         </p>
       </a-row>
       <a-row>
-        <p>
-          角色名称： {{ roleName }}
-        </p>
+        <a-col :span=3>
+          <p>
+            角色名称：
+          </p>
+        </a-col>
+        <a-col :span=4>
+          <a-input></a-input>
+        </a-col>
       </a-row>
       <a-row>
         <p>

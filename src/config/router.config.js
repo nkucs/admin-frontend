@@ -68,7 +68,7 @@ export const asyncRouterMap = [
           {
             path: '/permission/create',
             name: 'rolecreate',
-            component: () => import('@/views/permission/RoleDistribution'),
+            component: () => import('@/views/permission/RoleCreation'),
             meta: { title: '角色新建', icon: 'dashboard', permission: [ 'dashboard' ] }
           }
         ]
