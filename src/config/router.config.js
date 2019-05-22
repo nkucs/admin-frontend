@@ -8,25 +8,73 @@ export const asyncRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: { title: '首页' },
-    redirect: '/problem',
+    redirect: '/staff',
     children: [
       {
-        path: '/problem',
-        name: 'problem',
-        component: () => import('@/views/result/Success'),
-        meta: { title: '题目管理', icon: 'dashboard', permission: [ 'dashboard' ] }
+        path: '/staff',
+        name: 'staff',
+        component: BlankLayout,
+        meta: { title: '职工管理', icon: 'dashboard', permission: [ 'dashboard' ] },  
+        children: [
+          {
+            path: '/list',
+            name: 'stafflist',
+            component: () => import('@/views/permission/RoleDistribution'),
+            meta: { title: '职工列表', icon: 'dashboard', permission: [ 'dashboard' ] }
+          },
+          {
+            path: '/create',
+            name: 'staffcreate',
+            component: () => import('@/views/permission/RoleDistribution'),
+            meta: { title: '职工新建', icon: 'dashboard', permission: [ 'dashboard' ] }
+          }
+        ]
       },
       {
-        path: 'course',
-        name: 'course',
-        component: () => import('@/views/result/Success'),
-        meta: { title: '课程管理', icon: 'dashboard', permission: [ 'dashboard' ] }
+        path: '/student',
+        name: 'student',
+        component: BlankLayout,
+        meta: { title: '学生管理', icon: 'dashboard', permission: [ 'dashboard' ] },
+        children: [
+          {
+            path: '/list',
+            name: 'studentlist',
+            component: () => import('@/views/permission/RoleDistribution'),
+            meta: { title: '学生列表', icon: 'dashboard', permission: [ 'dashboard' ] }
+          },
+          {
+            path: '/create',
+            name: 'studentcreate',
+            component: () => import('@/views/permission/RoleDistribution'),
+            meta: { title: '学生新建', icon: 'dashboard', permission: [ 'dashboard' ] }
+          }
+        ]
       },
       {
-        path: '/user/',
-        name: 'user',
-        component: () => import('@/views/result/Success'),
-        meta: { title: '用户管理', icon: 'dashboard', permission: [ 'dashboard' ] }
+        path: '/permission',
+        name: 'permission',
+        component: BlankLayout,
+        meta: { title: '权限管理', icon: 'dashboard', permission: [ 'dashboard' ] },
+        children: [
+          {
+            path: '/list',
+            name: 'rolelist',
+            component: () => import('@/views/permission/RoleDistribution'),
+            meta: { title: '角色列表', icon: 'dashboard', permission: [ 'dashboard' ] }
+          },
+          {
+            path: '/create',
+            name: 'rolecreate',
+            component: () => import('@/views/permission/RoleDistribution'),
+            meta: { title: '角色新建', icon: 'dashboard', permission: [ 'dashboard' ] }
+          },
+          {
+            path: '/distribution',
+            name: 'roledistribution',
+            component: () => import('@/views/permission/RoleDistribution'),
+            meta: { title: '角色分配', icon: 'dashboard', permission: [ 'dashboard' ] }
+          }
+        ]
       }
     ]
   },
