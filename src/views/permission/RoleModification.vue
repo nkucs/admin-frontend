@@ -1,14 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb>
-      <a-breadcrumb-item>权限管理</a-breadcrumb-item>
-      <a-breadcrumb-item><a href="">角色列表</a></a-breadcrumb-item>
-      <a-breadcrumb-item><a href="">admin1</a></a-breadcrumb-item>
-      <a-breadcrumb-item>角色修改</a-breadcrumb-item>
-    </a-breadcrumb>
-    <p style="font-size: 20px;">
-      角色修改
-    </p>
     <a-card title="角色信息" class="my-card">
       <a-row>
         <p>
