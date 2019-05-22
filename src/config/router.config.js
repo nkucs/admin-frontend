@@ -17,13 +17,13 @@ export const asyncRouterMap = [
         meta: { title: '职工管理', icon: 'dashboard', permission: [ 'dashboard' ] },  
         children: [
           {
-            path: '/list',
+            path: '/staff/list',
             name: 'stafflist',
             component: () => import('@/views/staff/StaffList'),
             meta: { title: '职工列表', icon: 'dashboard', permission: [ 'dashboard' ] }
           },
           {
-            path: '/create',
+            path: '/staff/create',
             name: 'staffcreate',
             component: () => import('@/views/staff/StaffCreation'),
             meta: { title: '职工新建', icon: 'dashboard', permission: [ 'dashboard' ] }
@@ -37,13 +37,13 @@ export const asyncRouterMap = [
         meta: { title: '学生管理', icon: 'dashboard', permission: [ 'dashboard' ] },
         children: [
           {
-            path: '/list',
+            path: '/student/list',
             name: 'studentlist',
             component: () => import('@/views/student/StudentList'),
             meta: { title: '学生列表', icon: 'dashboard', permission: [ 'dashboard' ] }
           },
           {
-            path: '/create',
+            path: '/student/create',
             name: 'studentcreate',
             component: () => import('@/views/student/StudentCreation'),
             meta: { title: '学生新建', icon: 'dashboard', permission: [ 'dashboard' ] }
@@ -57,13 +57,13 @@ export const asyncRouterMap = [
         meta: { title: '权限管理', icon: 'dashboard', permission: [ 'dashboard' ] },
         children: [
           {
-            path: '/list',
+            path: '/permission/list',
             name: 'rolelist',
             component: () => import('@/views/permission/RoleDistribution'),
             meta: { title: '角色列表', icon: 'dashboard', permission: [ 'dashboard' ] }
           },
           {
-            path: '/create',
+            path: '/permission/create',
             name: 'rolecreate',
             component: () => import('@/views/permission/RoleDistribution'),
             meta: { title: '角色新建', icon: 'dashboard', permission: [ 'dashboard' ] }
