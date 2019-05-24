@@ -19,50 +19,50 @@
     </a-card>
     <a-card title="权限信息">
       
-       <a-row type="flex">
-          <a-col :span="12">
-            <a-icon type="check-square" theme="twoTone"/> 教师管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="close-square"/> 学生管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="check-square" theme="twoTone"/> 课程系列管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="check-square" theme="twoTone"/> 课程管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="close-square"/> 考试管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="close-square"/> 考试密码管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="check-square" theme="twoTone"/> 消息管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="close-square"/> 编程题目管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="check-square" theme="twoTone"/> 标签管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="check-square" theme="twoTone"/> 报告题目管理权限
-          </a-col>
-          <a-col :span="12">
-           <a-icon type="check-square" theme="twoTone"/> 课程资源管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="close-square"/> 实验题目管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="check-square" theme="twoTone"/> 权限管理权限
-          </a-col>
-          <a-col :span="12">
-            <a-icon type="check-square" theme="twoTone"/> 角色管理权限
-          </a-col>
-        </a-row>
+      <a-row type="flex">
+        <a-col :span="12">
+          <a-icon type="check-square" theme="twoTone"/> 教师管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="close-square"/> 学生管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="check-square" theme="twoTone"/> 课程系列管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="check-square" theme="twoTone"/> 课程管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="close-square"/> 考试管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="close-square"/> 考试密码管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="check-square" theme="twoTone"/> 消息管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="close-square"/> 编程题目管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="check-square" theme="twoTone"/> 标签管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="check-square" theme="twoTone"/> 报告题目管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="check-square" theme="twoTone"/> 课程资源管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="close-square"/> 实验题目管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="check-square" theme="twoTone"/> 权限管理权限
+        </a-col>
+        <a-col :span="12">
+          <a-icon type="check-square" theme="twoTone"/> 角色管理权限
+        </a-col>
+      </a-row>
     </a-card>
   </div>
 </template>

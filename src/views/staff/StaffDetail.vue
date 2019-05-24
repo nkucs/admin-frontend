@@ -1,38 +1,38 @@
 <template>
-<div>
-  <a-card>
-    <h3>
-      职工详情
-    </h3>
-    <div class="avatar">
-      <a-avatar :size="64" :src="imageUrl" alt="avatar" />
-    </div>
-    <div class='info'>
-      <div class='info-label'>
-        <p>职工ID</p>     
-        <p>编号</p>       
-        <p>账号</p>        
-        <p>昵称</p>        
-        <p>性别</p>       
-        <p>状态</p>      
-        <p>角色</p>
+  <div>
+    <a-card>
+      <h3>
+        职工详情
+      </h3>
+      <div class="avatar">
+        <a-avatar :size="64" :src="imageUrl" alt="avatar" />
       </div>
-      <div class='info-content'>
-        <p>{{ id }}</p>
-        <p>{{ number }}</p>
-        <p>{{ account }}</p>
-        <p>{{ nickname }}</p>
-        <p>{{ gender }}</p>
-        <p>{{ status }}</p>
-        <p>{{ role }}</p>
+      <div class='info'>
+        <div class='info-label'>
+          <p>职工ID</p>     
+          <p>编号</p>       
+          <p>账号</p>        
+          <p>昵称</p>        
+          <p>性别</p>       
+          <p>状态</p>      
+          <p>角色</p>
+        </div>
+        <div class='info-content'>
+          <p>{{ id }}</p>
+          <p>{{ number }}</p>
+          <p>{{ account }}</p>
+          <p>{{ nickname }}</p>
+          <p>{{ gender }}</p>
+          <p>{{ status }}</p>
+          <p>{{ role }}</p>
+        </div>
       </div>
+    </a-card>
+    <div style="float: right; margin-top: 20px">
+      <a-button style="margin-right: 20px;" type="primary">重置密码</a-button>
+      <a-button type="primary">修改信息</a-button>
     </div>
-  </a-card>
-  <div style="float: right; margin-top: 20px">
-    <a-button style="margin-right: 20px;"  type="primary">重置密码</a-button>
-    <a-button type="primary">修改信息</a-button>
   </div>
-</div>
 </template>
 
 <script>
