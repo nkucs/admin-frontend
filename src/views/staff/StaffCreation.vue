@@ -54,7 +54,7 @@
       </a-form>
     </a-card>
     <div style="float: right; margin-top: 20px">
-      <a-button style="margin-right: 20px;"  type="primary" @click="confirm">确定</a-button>
+      <a-button style="margin-right: 20px;" type="primary" @click="confirm">确定</a-button>
       <a-button @click="cancel">取消</a-button>
     </div>
   </div>
