@@ -49,6 +49,12 @@ export const asyncRouterMap = [
             name: 'studentcreate',
             component: () => import('@/views/student/StudentCreation'),
             meta: { title: '学生新建', icon: 'dashboard', permission: [ 'dashboard' ] }
+          },
+          {
+            path: '/student/list/1',
+            name: 'studentdetail',
+            component: () => import('@/views/student/StudentDetail'),
+            meta: { title: '学生详情', icon: 'dashboard', permission: [ 'dashboard' ] }
           }
         ]
       },
@@ -70,6 +76,12 @@ export const asyncRouterMap = [
             name: 'rolecreate',
             component: () => import('@/views/permission/RoleCreation'),
             meta: { title: '角色新建', icon: 'dashboard', permission: [ 'dashboard' ] }
+          },
+          {
+            path: '/permission/detail',
+            name: 'roledetail',
+            component: () => import('@/views/permission/RoleDetail'),
+            meta: { title: '角色详情', icon: 'dashboard', permission: [ 'dashboard' ] }
           }
         ]
       }
