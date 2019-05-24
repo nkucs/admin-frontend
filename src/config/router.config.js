@@ -49,6 +49,12 @@ export const asyncRouterMap = [
             name: 'studentcreate',
             component: () => import('@/views/student/StudentCreation'),
             meta: { title: '学生新建', icon: 'dashboard', permission: [ 'dashboard' ] }
+          },
+          {
+            path: '/student/change',
+            name: 'studentchange',
+            component: () => import('@/views/student/StudentChange'),
+            meta: { title: '学生信息修改', icon: 'dashboard', permission: [ 'dashboard' ] }
           }
         ]
       },
