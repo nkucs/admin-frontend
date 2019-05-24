@@ -51,7 +51,7 @@
           <a-button type="primary" @click="makeQuery">查询</a-button>
         </a-col>
         <a-col :span=2>
-          <a-button class="right-btn" @click="cancel">取消</a-button>
+          <a-button class="right-btn" @click="cancelQuery">取消</a-button>
         </a-col>
       </a-row>
       <a-row class="my-row">
@@ -60,7 +60,7 @@
         </a-col>
         <a-col :span=3>
           <a-button
-            @click="start"
+            @click="batchDelete"
             :disabled="!hasSelected"
             :loading="loading">
             批量删除
@@ -73,14 +73,14 @@
             </p>
           </a-col>
           <a-col :span=3>
-            <p class="clear-item" @click="clear">清空</p>
+            <p class="clear-item" @click="clearSelection">清空</p>
           </a-col>
         </span>
       </a-row>
       <a-row class="my-row">
         <a-table :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}" :columns="columns" :dataSource="data" class="my-table">
-          <span slot="action" slot-scope="text">
-            <a href="javascript:;">详情</a>
+          <span slot="action" slot-scope="text, record">
+            <a href="javascript:;" @click="dataInfo(record)">详情</a>
             <a-divider type="vertical" />
             <a href="javascript:;">修改</a>
             <a-divider type="vertical" />
@@ -95,8 +95,6 @@
 <script>
 export default {
   name: 'RoleDistribution',
-  props: {
-  },
   data () {
     return {
       loading: false,
@@ -157,7 +155,16 @@ export default {
     }
   },
   methods: {
-    start () {
+    dataInfo (record) {
+      record
+    },
+    dataModify () {
+
+    },
+    dataDelete () {
+      
+    },
+    batchDelete () {
       this.loading = true
       // ajax request after empty completing
       setTimeout(() => {
@@ -168,13 +175,13 @@ export default {
     onSelectChange (selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys
     },
-    cancel () {
+    cancelQuery () {
       this.$refs.id_input.$data.stateValue = ''
       this.$refs.account_input.$data.stateValue = ''
       this.$refs.name_input.$data.stateValue = ''
       this.$refs.status_input.$data.stateValue = ''
     },
-    clear () {
+    clearSelection () {
       this.selectedRowKeys = []
     },
     makeQuery () {
