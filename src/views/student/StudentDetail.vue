@@ -53,10 +53,10 @@
     <a-row style="margin-top: 20px;">
       <a-col :span=20></a-col>
       <a-col :span=2>
-        <a-button>重置密码</a-button>
+        <a-button type="primary" @click="resetPwd">重置密码</a-button>
       </a-col>
       <a-col :span=2>
-        <a-button class="modify">修改信息</a-button>
+        <a-button class="modify" type="primary" @click="resetInfo">修改信息</a-button>
       </a-col>
     </a-row>
   </div>
@@ -107,6 +107,16 @@
         type: String,
         default: '山东'
       }
+    },
+    methods:{
+      resetPwd () {
+        this.account=account;
+        console.log('Received Account of form: ', account);
+      },
+      resetInfo (){
+        this.account=account;
+        console.log('Received Account of form: ', account);
+      },
     },
   }
 </script>
