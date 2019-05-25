@@ -1,36 +1,39 @@
 <template>
   <a-card :bordered="false">
-    <template>
-      <div style="margin-bottom: 16px">
-        ID:
-        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入"/>
-        账号:
-        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入"/>
-        昵称:
-        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入"/>
-        状态:
-        <a-dropdown-button style="width: 10%; margin-right: 5%;" >
-          请选择
-          <a-menu slot="overlay"  >
-          <a-menu-item key="1"><a-icon type="user" />正常</a-menu-item>
-          <a-menu-item key="2"><a-icon type="user" />关闭</a-menu-item>
-          <a-menu-item key="3"><a-icon type="user" />异常</a-menu-item>
-          </a-menu>
-        </a-dropdown-button>
-        
-        性别:
-        <a-dropdown-button style="width: 10%; margin-right: 5%;" >
-          请选择
-          <a-menu slot="overlay" >
-          <a-menu-item key="1"><a-icon type="user" />男</a-menu-item>
-          <a-menu-item key="2"><a-icon type="user" />女</a-menu-item>
-          </a-menu>
-        </a-dropdown-button>
-
-        <a-button type="primary" style="margin-right: 2%;">查询</a-button>
-        <a-button>取消</a-button>
-      </div>
-    </template>
+  <template>
+        <a-form layout="inline" @submit="handleSubmit">
+          <a-form-item
+          label="ID"
+          >
+            <a-input placeholder="请输入" v-decorator="['ID']"/>
+          </a-form-item>
+          <a-form-item label="编号">
+            <a-input placeholder="请输入" v-decorator="['number']"/>
+          </a-form-item>
+          <a-form-item label="账号">
+            <a-input placeholder="请输入" v-decorator="['account']"/>
+          </a-form-item>
+          <a-form-item label="状态">
+            <a-select v-decorator="['state']" placeholder="请选择">
+                <a-select-option value="正常">正常</a-select-option>
+                <a-select-option value="异常">异常</a-select-option>
+                <a-select-option value="关闭">关闭</a-select-option>
+                </a-select>
+          </a-form-item>
+          <a-form-item label="性别">
+            <a-select v-decorator="['gender']" placeholder="请选择">
+                <a-select-option value="male">男</a-select-option>
+                <a-select-option value="female">女</a-select-option>
+                </a-select>
+          </a-form-item>
+          <a-form-item>
+            <a-button type="primary" style="margin-right: 2%;" @html-type="submit">查询</a-button>
+          </a-form-item>
+          <a-form-item>
+            <a-button>取消</a-button>
+          </a-form-item>
+        </a-form>
+        </template>
     <template>
       <div>
         <div style="margin-bottom: 16px">
@@ -131,7 +134,15 @@ export default {
     onSelectChange (selectedRowKeys) {
       console.log('selectedRowKeys changed: ', selectedRowKeys);
       this.selectedRowKeys = selectedRowKeys
-    }
+    },
+    handleSubmit (e) {
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log('Received values of form: ', values);
+        }
+      });
+    },
   },
 }
 </script>

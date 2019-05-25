@@ -51,7 +51,7 @@ export const asyncRouterMap = [
             meta: { title: '学生新建', icon: 'dashboard', permission: [ 'dashboard' ] }
           },
           {
-            path: '/student/list/1',
+            path: '/student/detail',
             name: 'studentdetail',
             component: () => import('@/views/student/StudentDetail'),
             meta: { title: '学生详情', icon: 'dashboard', permission: [ 'dashboard' ] }
