@@ -74,7 +74,7 @@ export const asyncRouterMap = [
           {
             path: '/permission/list',
             name: 'rolelist',
-            component: () => import('@/views/permission/RoleDistribution'),
+            component: () => import('@/views/permission/RoleList'),
             meta: { title: '角色列表', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
@@ -88,6 +88,12 @@ export const asyncRouterMap = [
             name: 'roledetail',
             component: () => import('@/views/permission/RoleDetail'),
             meta: { title: '角色详情', icon: 'dashboard', permission: ['dashboard'] }
+          },
+          {
+            path: '/permission/modification',
+            name: 'rolemodification',
+            component: () => import('@/views/permission/RoleModification'),
+            meta: { title: '角色修改', icon: 'dashboard', permission: ['dashboard'] }
           }
         ]
       }
