@@ -112,7 +112,6 @@
 export default {
   name: 'StudentChange',
   props: {},
-  data() {}
 }
 </script>
 
