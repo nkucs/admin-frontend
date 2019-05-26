@@ -1,39 +1,30 @@
 <template>
   <a-card :bordered="false">
-  <template>
-        <a-form layout="inline" @submit="handleSubmit">
-          <a-form-item
-          label="ID"
-          >
-            <a-input placeholder="请输入" v-decorator="['ID']"/>
-          </a-form-item>
-          <a-form-item label="编号">
-            <a-input placeholder="请输入" v-decorator="['number']"/>
-          </a-form-item>
-          <a-form-item label="账号">
-            <a-input placeholder="请输入" v-decorator="['account']"/>
-          </a-form-item>
-          <a-form-item label="状态">
-            <a-select v-decorator="['state']" placeholder="请选择">
-                <a-select-option value="正常">正常</a-select-option>
-                <a-select-option value="异常">异常</a-select-option>
-                <a-select-option value="关闭">关闭</a-select-option>
-                </a-select>
-          </a-form-item>
-          <a-form-item label="性别">
-            <a-select v-decorator="['gender']" placeholder="请选择">
-                <a-select-option value="male">男</a-select-option>
-                <a-select-option value="female">女</a-select-option>
-                </a-select>
-          </a-form-item>
-          <a-form-item>
-            <a-button type="primary" style="margin-right: 2%;" @html-type="submit">查询</a-button>
-          </a-form-item>
-          <a-form-item>
-            <a-button>取消</a-button>
-          </a-form-item>
-        </a-form>
-        </template>
+    <template>
+    <div style="margin-bottom: 16px">
+          ID:
+          <a-input style="width: 15%; margin-right: 5%;" placeholder="请输入"/>
+          编号:
+          <a-input style="width: 15%; margin-right: 5%;" placeholder="请输入"/>
+          账号：
+          <a-input style="width: 15%; margin-right: 5%;" placeholder="请输入"/>
+          状态：
+          <a-select defaultValue="normal" >
+            <a-select-option value="normal">正常</a-select-option>
+            <a-select-option value="abnormal">异常</a-select-option>
+            <a-select-option value="closed">关闭</a-select-option>
+          </a-select>
+          &nbsp&nbsp
+          性别:
+          <a-select defaultValue="male">
+            <a-select-option value="male">男</a-select-option>
+            <a-select-option value="female">女</a-select-option>
+          </a-select>
+          &nbsp&nbsp
+          <a-button type="primary" style="margin-right: 2%;" @click="inquire">查询</a-button>
+          <a-button>取消</a-button>
+          </div>
+    </template>
     <template>
       <div>
         <div style="margin-bottom: 16px">
@@ -57,7 +48,7 @@
           </a-button>
           <span style="margin-left: 8px">
             <template v-if="hasSelected">
-              {{`已选择 ${selectedRowKeys.length} 项`}}
+              {{ `已选择 ${selectedRowKeys.length} 项` }}
             </template>
           </span>
         </div>
@@ -94,9 +85,9 @@ const columns = [{
   title: 'Action',
   key: 'action',
   scopedSlots: { customRender: 'action' },
-}];
+}]
 
-const data = [];
+const data = []
 for (let i = 0; i < 30; i++) {
   data.push({
     key: i,
@@ -105,7 +96,7 @@ for (let i = 0; i < 30; i++) {
     state: `关闭`,
     gender: '男',
     
-  });
+  })
 }
 
 export default {
@@ -124,24 +115,20 @@ export default {
   },
   methods: {
     start () {
-      this.loading = true;
+      this.loading = true
       // ajax request after empty completing
       setTimeout(() => {
-        this.loading = false;
-        this.selectedRowKeys = [];
-      }, 1000);
+        this.loading = false
+        this.selectedRowKeys = []
+      }, 1000)
     },
     onSelectChange (selectedRowKeys) {
-      console.log('selectedRowKeys changed: ', selectedRowKeys);
+      console.log('selectedRowKeys changed: ', selectedRowKeys)
       this.selectedRowKeys = selectedRowKeys
     },
-    handleSubmit (e) {
-      e.preventDefault();
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
-        }
-      });
+    inquire (account) {
+      this.account=account
+      console.log('Received Account: ', account)
     },
   },
 }

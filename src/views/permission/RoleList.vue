@@ -30,7 +30,7 @@
           </a-button>
           <span style="margin-left: 8px">
             <template v-if="hasSelected">
-              {{`已选择 ${selectedRowKeys.length} 项`}}
+              {{ `已选择 ${selectedRowKeys.length} 项` }}
             </template>
           </span>
         </div>
@@ -64,16 +64,16 @@ const columns = [{
   title: 'Action',
   key: 'action',
   scopedSlots: { customRender: 'action' },
-}];
+}]
 
-const data = [];
+const data = []
 for (let i = 0; i < 30; i++) {
   data.push({
     key: i,
     name: `管理员 ${i}`,
     description: `这是管理员 ${i+1}的介绍`,
     number: 30+i,
-  });
+  })
 }
 
 export default {
@@ -92,15 +92,15 @@ export default {
   },
   methods: {
     start () {
-      this.loading = true;
+      this.loading = true
       // ajax request after empty completing
       setTimeout(() => {
-        this.loading = false;
-        this.selectedRowKeys = [];
-      }, 1000);
+        this.loading = false
+        this.selectedRowKeys = []
+      }, 1000)
     },
     onSelectChange (selectedRowKeys) {
-      console.log('selectedRowKeys changed: ', selectedRowKeys);
+      console.log('selectedRowKeys changed: ', selectedRowKeys)
       this.selectedRowKeys = selectedRowKeys
     }
   },

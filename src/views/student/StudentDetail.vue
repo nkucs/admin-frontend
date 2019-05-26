@@ -95,7 +95,7 @@
         type: String,
         default: '正常'
       },
-      class_number: {
+      classNumber: {
         type: String,
         default: '2班'
       },
@@ -109,13 +109,13 @@
       }
     },
     methods:{
-      resetPwd () {
-        this.account=account;
-        console.log('Received Account of form: ', account);
+      resetPwd (account) {
+        this.account=account
+        console.log('Received Account: ', account)
       },
-      resetInfo (){
-        this.account=account;
-        console.log('Received Account of form: ', account);
+      resetInfo (account){
+        this.account=account
+        console.log('Received Account: ', account)
       },
     },
   }
