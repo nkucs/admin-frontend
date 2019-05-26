@@ -117,10 +117,11 @@ export default {
       this.$router.push({path: '/permission/create'})
     },
     toDetail (roleId) {
-      this.$router.push({path: '/permission/detail', params: {id_role: roleId}})
+      console.log(roleId)
+      this.$router.push({path: '/permission/detail', query: {id_role: roleId}})
     },
     toEdit (roleId) {
-      this.$router.push({path: '/permission/modification', params: {id_role: roleId}})
+      this.$router.push({path: '/permission/modification', query: {id_role: roleId}})
     },
     onSelectChange (selectedRowKeys) {
       console.log('selectedRowKeys changed: ', selectedRowKeys)
@@ -172,7 +173,7 @@ export default {
       //       }
       //     })
       //     .catch(function (error) {
-      //       console.log(error)
+      //       console.error(error)
       //     })
       // }
       this.visibleDelete = false
@@ -192,7 +193,7 @@ export default {
       //     }
       //   })
       //   .catch(function (error) {
-      //     console.log(error)
+      //     console.error(error)
       //   })
       console.log(roleId)
       this.visibleDeleteOne = false
