@@ -1,23 +1,21 @@
 <template>
   <div>
     <a-card>
-      <h3>
-        职工详情
-      </h3>
+      <h3>职工详情</h3>
       <div class="avatar">
-        <a-avatar :size="64" :src="imageUrl" alt="avatar" />
+        <a-avatar :size="64" :src="imageUrl" alt="avatar"/>
       </div>
-      <div class='info'>
-        <div class='info-label'>
-          <p>职工ID</p>     
-          <p>编号</p>       
-          <p>账号</p>        
-          <p>昵称</p>        
-          <p>性别</p>       
-          <p>状态</p>      
+      <div class="info">
+        <div class="info-label">
+          <p>职工ID</p>
+          <p>编号</p>
+          <p>账号</p>
+          <p>昵称</p>
+          <p>性别</p>
+          <p>状态</p>
           <p>角色</p>
         </div>
-        <div class='info-content'>
+        <div class="info-content">
           <p>{{ id }}</p>
           <p>{{ number }}</p>
           <p>{{ account }}</p>
@@ -36,48 +34,48 @@
 </template>
 
 <script>
-  function getBase64 (img, callback) {
-    const reader = new FileReader()
-    reader.addEventListener('load', () => callback(reader.result))
-    reader.readAsDataURL(img)
-  }
-  export default {
-    name: 'StaffCreation',
-    props: {
-      id: {
-        type: String,
-        default: '0'
-      },
-      imageUrl: {
-        type: String,
-        default: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-      },
-      number: {
-        type: Number,
-        default: 123456
-      },
-      account: {
-        type: String,
-        default: 'nankai123'
-      },
-      nickname: {
-        type: String,
-        default: 'nankai'
-      },
-      gender: {
-        type: String,
-        default: '男性'
-      },
-      status: {
-        type: String,
-        default: '正常'
-      },
-      role: {
-        type: String,
-        default: 'admin1'
-      }
+function getBase64(img, callback) {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
+}
+export default {
+  name: 'StaffCreation',
+  props: {
+    id: {
+      type: String,
+      default: '0'
+    },
+    imageUrl: {
+      type: String,
+      default: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+    },
+    number: {
+      type: Number,
+      default: 123456
+    },
+    account: {
+      type: String,
+      default: 'nankai123'
+    },
+    nickname: {
+      type: String,
+      default: 'nankai'
+    },
+    gender: {
+      type: String,
+      default: '男性'
+    },
+    status: {
+      type: String,
+      default: '正常'
+    },
+    role: {
+      type: String,
+      default: 'admin1'
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
