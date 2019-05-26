@@ -1,29 +1,29 @@
 <template>
   <a-card :bordered="false">
     <template>
-    <div style="margin-bottom: 16px">
-          ID:
-          <a-input style="width: 15%; margin-right: 5%;" placeholder="请输入"/>
-          编号:
-          <a-input style="width: 15%; margin-right: 5%;" placeholder="请输入"/>
-          账号：
-          <a-input style="width: 15%; margin-right: 5%;" placeholder="请输入"/>
-          状态：
-          <a-select defaultValue="normal" >
-            <a-select-option value="normal">正常</a-select-option>
-            <a-select-option value="abnormal">异常</a-select-option>
-            <a-select-option value="closed">关闭</a-select-option>
-          </a-select>
-          &nbsp&nbsp
-          性别:
-          <a-select defaultValue="male">
-            <a-select-option value="male">男</a-select-option>
-            <a-select-option value="female">女</a-select-option>
-          </a-select>
-          &nbsp&nbsp
-          <a-button type="primary" style="margin-right: 2%;" @click="inquire">查询</a-button>
-          <a-button>取消</a-button>
-          </div>
+      <div style="margin-bottom: 16px">
+        ID:
+        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入"/>
+        编号:
+        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入"/>
+        账号：
+        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入"/>
+        状态：
+        <a-select defaultValue="normal" >
+          <a-select-option value="normal">正常</a-select-option>
+          <a-select-option value="abnormal">异常</a-select-option>
+          <a-select-option value="closed">关闭</a-select-option>
+        </a-select>
+        &nbsp&nbsp
+        性别:
+        <a-select defaultValue="male">
+          <a-select-option value="male">男</a-select-option>
+          <a-select-option value="female">女</a-select-option>
+        </a-select>
+        &nbsp&nbsp
+        <a-button type="primary" style="margin-right: 2%;" @click="inquire">查询</a-button>
+        <a-button>取消</a-button>
+      </div>
     </template>
     <template>
       <div>
@@ -68,7 +68,7 @@
 <script>
 const columns = [{
   title: 'ID',
-  dataIndex: 'key',
+  dataIndex: 'ID',
 }, {
   title: '编号',
   dataIndex: 'number',
@@ -90,7 +90,7 @@ const columns = [{
 const data = []
 for (let i = 0; i < 30; i++) {
   data.push({
-    key: i,
+    ID: i+1,
     number: `abd`,
     account: 10000+i,
     state: `关闭`,
@@ -126,9 +126,17 @@ export default {
       console.log('selectedRowKeys changed: ', selectedRowKeys)
       this.selectedRowKeys = selectedRowKeys
     },
-    inquire (account) {
+    inquire (ID,number,account,state,gender) {
+      this.ID=ID
       this.account=account
+      this.number=number
+      this.state=state
+      this.gender=gender
+      console.log('Received ID: ', ID)
       console.log('Received Account: ', account)
+      console.log('Received Number: ', number)
+      console.log('Received State: ', state)
+      console.log('Received Gender: ', gender)
     },
   },
 }
