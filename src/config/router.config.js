@@ -67,14 +67,14 @@ export const asyncRouterMap = [
           {
             path: '/student/modification',
             name: 'studentmodification',
-            // hidden: true,
+            hidden: true,
             component: () => import('@/views/student/StudentModification'),
             meta: { title: '学生信息修改', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
             path: '/student/detail',
             name: 'studentdetail',
-            // hidden: true,
+            hidden: true,
             component: () => import('@/views/student/StudentDetail'),
             meta: { title: '学生详情', icon: 'dashboard', permission: ['dashboard'] }
           },
