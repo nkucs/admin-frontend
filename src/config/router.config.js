@@ -32,14 +32,14 @@ export const asyncRouterMap = [
           {
             path: '/staff/modification',
             name: 'staffmodification',
-            // hidden: true,
+            hidden: true,
             component: () => import('@/views/staff/StaffModification'),
             meta: { title: '职工信息修改', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
             path: '/staff/detail',
             name: 'staffdetail',
-            // hidden: true,
+            hidden: true,
             component: () => import('@/views/staff/StaffDetail'),
             meta: { title: '职工详情', icon: 'dashboard', permission: ['dashboard'] }
           },
