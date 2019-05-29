@@ -24,11 +24,25 @@ export const asyncRouterMap = [
             meta: { title: '职工列表', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
-            path: '/staff/create',
-            name: 'staffcreate',
+            path: '/staff/creation',
+            name: 'staffcreation',
             component: () => import('@/views/staff/StaffCreation'),
             meta: { title: '职工新建', icon: 'dashboard', permission: ['dashboard'] }
-          }
+          },
+          {
+            path: '/staff/modification',
+            name: 'staffmodification',
+            hidden: true,
+            component: () => import('@/views/staff/StaffModification'),
+            meta: { title: '职工信息修改', icon: 'dashboard', permission: ['dashboard'] }
+          },
+          {
+            path: '/staff/detail',
+            name: 'staffdetail',
+            hidden: true,
+            component: () => import('@/views/staff/StaffDetail'),
+            meta: { title: '职工详情', icon: 'dashboard', permission: ['dashboard'] }
+          },
         ]
       },
       {
@@ -45,20 +59,22 @@ export const asyncRouterMap = [
             meta: { title: '学生列表', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
-            path: '/student/create',
-            name: 'studentcreate',
+            path: '/student/creation',
+            name: 'studentcreation',
             component: () => import('@/views/student/StudentCreation'),
             meta: { title: '学生新建', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
-            path: '/student/change',
-            name: 'studentchange',
-            component: () => import('@/views/student/StudentChange'),
+            path: '/student/modification',
+            name: 'studentmodification',
+            hidden: true,
+            component: () => import('@/views/student/StudentModification'),
             meta: { title: '学生信息修改', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
             path: '/student/detail',
             name: 'studentdetail',
+            hidden: true,
             component: () => import('@/views/student/StudentDetail'),
             meta: { title: '学生详情', icon: 'dashboard', permission: ['dashboard'] }
           },
@@ -78,22 +94,31 @@ export const asyncRouterMap = [
             meta: { title: '角色列表', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
-            path: '/permission/create',
-            name: 'rolecreate',
+            path: '/permission/creation',
+            name: 'rolecreation',
             component: () => import('@/views/permission/RoleCreation'),
             meta: { title: '角色新建', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
+            path: '/permission/distribution',
+            name: 'roledistribution',
+            hidden: true,
+            component: () => import('@/views/permission/RoleDistribution'),
+            meta: { title: '角色分配', icon: 'dashboard', permission: ['dashboard'] }
+          },
+          {
             path: '/permission/detail',
             name: 'roledetail',
+            hidden: true,
             component: () => import('@/views/permission/RoleDetail'),
             meta: { title: '角色详情', icon: 'dashboard', permission: ['dashboard'] }
           },
           {
             path: '/permission/modification',
             name: 'rolemodification',
+            hidden: true,
             component: () => import('@/views/permission/RoleModification'),
-            meta: { title: '角色修改', icon: 'dashboard', permission: ['dashboard'] }
+            meta: { title: '角色修改',  icon: 'dashboard', permission: ['dashboard'] }
           }
         ]
       }
