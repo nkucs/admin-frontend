@@ -87,7 +87,7 @@ const columns = [{
   scopedSlots: { customRender: 'action' },
 }]
 
-// import axios from 'axios'
+import { role_list, role_delete } from '@/api/permission'
 export default {
   data() {
     return {
@@ -102,6 +102,7 @@ export default {
       total: 10,
       visibleDelete: false,
       visibleDeleteOne: false,
+      deleteId: 0
     }
   },
   mounted: function () {
@@ -114,7 +115,7 @@ export default {
   },
   methods: {
     toCreate () {
-      this.$router.push({path: '/permission/create'})
+      this.$router.push({path: '/permission/creation'})
     },
     toDetail (roleId) {
       console.log(roleId)
@@ -128,22 +129,22 @@ export default {
       this.selectedRowKeys = selectedRowKeys
     },
     search () {
-      // var data = {'items_per_page': 10,
-      //         'page': this.page,
-      //         'search_request': {
-      //           'role_id': this.roleId,
-      //           'role_name': this.roleName,
-      //           'role_description': this.roleDescription
-      //           }
-      //         }
-      // axios.post('/administrator/role/role_list', data)
-      //   .then(function (response) {
-      //     this.data = response.data.roles
-      //     this.total = response.data.total_pages * 10
-      //   })
-      //   .catch(function (error) {
-      //     console.error(error)
-      //   })
+      var data = {'items_per_page': 10,
+              'page': this.page,
+              'search_request': {
+                'role_id': this.roleId,
+                'role_name': this.roleName,
+                'role_description': this.roleDescription
+                }
+              }
+      role_list(data)
+        .then(response => {
+          this.data = response.data.roles
+          this.total = response.data.total_pages * 10
+        })
+        .catch(error => {
+          console.error(error)
+        })
     },
     cancelSearch () {
       this.roleId = ''
@@ -157,45 +158,77 @@ export default {
       this.search()
     },
     toDelete () {
-      this.roleDelete()
       this.visibleDelete = true
     },
     roleDelete () {
-      // var selectedRowKeys = this.selectedRowKeys
-      // for (let i = 0; i < selectedRowKeys.length; i++) {
-      //   var data = {'id': selectedRowKeys[i]}
-      //   axios.post('/administrator/stuff/role_delete', data)
-      //     .then(function (response) {
-      //       if (response.data.state_code == 0) {
-      //         //success
-      //       } else if (response.data.state_code == -1) {
-      //         //fail
-      //       }
-      //     })
-      //     .catch(function (error) {
-      //       console.error(error)
-      //     })
-      // }
+      var selectedRowKeys = this.selectedRowKeys
+      var successnum = 0
+      for (let i = 0; i < selectedRowKeys.length; i++) {
+        var data = {'id': selectedRowKeys[i]}
+        role_delete(data)
+          .then(response => {
+            if (response.data.state_code == 0) {
+              //success
+              successnum += 1
+              if (i == selectedRowKeys.length-1) {
+                this.search()
+                if (successnum == selectedRowKeys.length) {
+                  this.$notification['success']({
+                    message: '删除成功！',
+                    description: '成功删除选中的' + successnum + '个角色',
+                    duration: 2
+                  })
+                } else {
+                  this.$notification['error']({
+                    message: '删除失败！',
+                    description: '未删除选中的所有角色'
+                  })
+                }
+              }
+            } else if (response.data.state_code == -1) {
+              //fail
+              if (i == selectedRowKeys.length-1) {
+                this.search()
+                this.$notification['error']({
+                  message: '删除失败！',
+                  description: '未删除选中的所有角色'
+                })
+              }
+            }
+          })
+          .catch(error => {
+            console.error(error)
+          })
+      }
       this.visibleDelete = false
     },
     toDeleteOne (roleId) {
-      this.roleDeleteOne(roleId)
+      this.deleteId = roleId
       this.visibleDeleteOne = true
     },
-    roleDeleteOne (roleId) {
-      // var data = {'id':roleId}
-      // axios.post('/administrator/stuff/role_delete', data)
-      //   .then(function (response) {
-      //     if (response.data.state_code == 0) {
-      //       //success
-      //     } else if (response.data.state_code == -1) {
-      //       //fail
-      //     }
-      //   })
-      //   .catch(function (error) {
-      //     console.error(error)
-      //   })
-      console.log(roleId)
+    roleDeleteOne () {
+      var data = {'id': this.deleteId}
+      role_delete(data)
+        .then(response => {
+          if (response.data.state_code == 0) {
+            //success
+            this.search()
+            this.$notification['success']({
+              message: '删除成功！',
+              duration: 2
+            })
+          } else if (response.data.state_code == -1) {
+            //fail
+            this.search()
+            this.$notification['error']({
+              message: '删除失败！',
+              description: response.error
+            })
+          }
+        })
+        .catch(error => {
+          console.error(error)
+        })
       this.visibleDeleteOne = false
     }
   },
