@@ -18,8 +18,8 @@
         </a-col>
         <a-col :span=3>
           <a-select style="width: 100%;" placeholder="请选择性别">
-            <a-select-option value="男">男</a-select-option>
-            <a-select-option value="女">女</a-select-option>
+            <a-select-option value="male" v-model="gender">男</a-select-option>
+            <a-select-option value="female" v-model="gender">女</a-select-option>
           </a-select>
         </a-col>
       </a-row>
@@ -28,7 +28,7 @@
           <p>编号：</p>
         </a-col>
         <a-col :span=3>
-          <a-input placeholder="请输入编号"></a-input>
+          <a-input placeholder="请输入编号" v-model="student_number"></a-input>
         </a-col>
       </a-row>
       <a-row class="my-row">
@@ -36,7 +36,7 @@
           <p>账号：</p>
         </a-col>
         <a-col :span=3>
-          <a-input placeholder="请输入账号"></a-input>
+          <a-input placeholder="请输入账号" v-model="account"></a-input>
         </a-col>
       </a-row>
       <a-row class="my-row">
@@ -44,7 +44,7 @@
           <p>昵称：</p>
         </a-col>
         <a-col :span=3>
-          <a-input placeholder="请输入昵称"></a-input>
+          <a-input placeholder="请输入昵称" v-model="nick_name"></a-input>
         </a-col>
       </a-row>
       <a-row class="my-row">
@@ -52,10 +52,10 @@
           <p>状态：</p>
         </a-col>
         <a-col :span=3>
-          <a-select style="width: 100%;" placeholder="请选择状态">
-            <a-select-option value="正常">正常</a-select-option>
-            <a-select-option value="异常">异常</a-select-option>
-            <a-select-option value="关闭">关闭</a-select-option>
+          <a-select style="width: 100%;" placeholder="请选择状态" v-model="status">
+            <a-select-option value="normal">正常</a-select-option>
+            <a-select-option value="error">异常</a-select-option>
+            <a-select-option value="closed">关闭</a-select-option>
           </a-select>
         </a-col>
       </a-row>
@@ -64,11 +64,11 @@
           <p>班级：</p>
         </a-col>
         <a-col :span=3>
-          <a-select style="width: 100%;" placeholder="请选择班级">
-            <a-select-option value="一班">一班</a-select-option>
-            <a-select-option value="二班">二班</a-select-option>
-            <a-select-option value="三班">三班</a-select-option>
-            <a-select-option value="四班">四班</a-select-option>
+          <a-select style="width: 100%;" placeholder="请选择班级" v-model="class_name">
+            <a-select-option value="class_1">一班</a-select-option>
+            <a-select-option value="class_2">二班</a-select-option>
+            <a-select-option value="class_3">三班</a-select-option>
+            <a-select-option value="class_4">四班</a-select-option>
           </a-select>
         </a-col>
       </a-row>
@@ -77,7 +77,7 @@
           <p>寝室：</p>
         </a-col>
         <a-col :span=3>
-          <a-input placeholder="请输入寝室"></a-input>
+          <a-input placeholder="请输入寝室" v-model="room"></a-input>
         </a-col>
       </a-row>
       <a-row class="my-row">
@@ -85,11 +85,11 @@
           <p>省份：</p>
         </a-col>
         <a-col :span=3>
-          <a-select style="width: 100%;" placeholder="请选择省份">
-            <a-select-option value="山东">山东</a-select-option>
-            <a-select-option value="天津">天津</a-select-option>
-            <a-select-option value="河北">河北</a-select-option>
-            <a-select-option value="贵州">贵州</a-select-option>
+          <a-select style="width: 100%;" placeholder="请选择省份" v-model="province">
+            <a-select-option value="1">山东</a-select-option>
+            <a-select-option value="2">天津</a-select-option>
+            <a-select-option value="3">河北</a-select-option>
+            <a-select-option value="4">贵州</a-select-option>
           </a-select>
         </a-col>
       </a-row>
@@ -109,9 +109,38 @@
 </template> 
 
 <script>
+import { axios } from '@/utils/request'
 export default {
   name: 'StudentChange',
   props: {},
+  data () {
+      return {
+        gender:'',
+        student_number:'',
+        account:'',
+        nick_name:'',
+        status:'',
+        class_name:'',
+        room:'',
+        province:''
+      }
+  },
+  mounted () {
+      this.student_number = this.$route.query.student_number
+      var data = {student_number: this.student_number}
+      axios.post('/administrator/role/student_get', data)
+          .then(response => {
+          this.gender = response.data.name
+          this.account = response.data.username
+          this.nick_name = response.data.name
+          this.class_name = response.data.class_name
+          this.room = response.data.room
+          this.province = response .data.room
+        })
+        .catch(error => {
+          console.error(error)
+        })
+  }
 }
 </script>
 
