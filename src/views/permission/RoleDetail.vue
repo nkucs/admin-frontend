@@ -69,7 +69,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import { role_detail } from '@/api/permission'
   export default {
     data() {
       return {
@@ -81,21 +81,22 @@
     },
     mounted () {
       this.roleId = this.$route.query.id_role
-      // axios.get('/administrator/role/role_detail?id_role='+this.roleId)
-      //   .then(function (response) {
-      //     this.roleName = response.data.name
-      //     this.roleDescription = response.data.description
-      //     var permission = response.data.permission
-      //     var options = []
-      //     for (let i = 0; i < permission.length; i++) {
-      //       const element = permission[i]
-      //       options.push(element.toString())
-      //     }
-      //     this.options = options
-      //   })
-      //   .catch(function (error) {
-      //     console.error(error)
-      //   })
+      var data = {id_role: this.roleId}
+      role_detail(data)
+        .then(response => {
+          this.roleName = response.data.name
+          this.roleDescription = response.data.description
+          var permission = response.data.permission
+          var options = []
+          for (let i = 0; i < permission.length; i++) {
+            const element = permission[i]
+            options.push(element.toString())
+          }
+          this.options = options
+        })
+        .catch(error => {
+          console.error(error)
+        })
     }
   }
 </script>
