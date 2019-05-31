@@ -81,7 +81,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import { role_create } from '@/api/permission'
   export default {
     data() {
       return {
@@ -98,6 +98,11 @@
       cancel () {
         this.$router.push({path: '/permission/list'})
       },
+      initial () {
+        this.roleName = '',
+        this.roleDescription = '',
+        this.rolePermission = []
+      },
       submit () {
         var permission = []
         for (let i = 0; i < this.rolePermission.length; i++) {
@@ -110,17 +115,27 @@
           'permission': permission
         }
         console.log(data)
-        // axios.post('/administrator/role/role_create', data)
-        //   .then(function (response) {
-        //     if (response.data.state_code == 0) {
-        //       //success
-        //     } else if (response.data.state_code == -1) {
-        //       //fail
-        //     }
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error)
-        //   })
+        role_create(data)
+          .then(response => {
+            console.log(response)
+            if (response.data.state_code == 0) {
+              //success
+              this.$notification['success']({
+                message: '创建成功！',
+                duration: 2
+              })
+              this.initial()
+            } else if (response.data.state_code == -1) {
+              //fail
+              this.$notification['error']({
+                message: '创建失败！',
+                description: response.error
+              })
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
       }
     }
   }
