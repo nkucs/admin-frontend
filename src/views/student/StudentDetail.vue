@@ -4,29 +4,29 @@
       <div class="img">
         <img :src="imgUrl">
       </div>
-      <a-row v-model="id">
-        <p>学生ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ id }}</p>
+      <a-row>
+        <p>学生ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ student_number }}</p>
       </a-row>
       <a-row v-model="gender">
         <p>性别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ gender }}</p>
       </a-row>
       <a-row>
-        <p>编号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ number }}</p>
+        <p>编号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
       </a-row>
       <a-row>
         <p>账号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ account }}</p>
       </a-row>
       <a-row>
-        <p>昵称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ nickname }}</p>
+        <p>昵称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ nick_name }}</p>
       </a-row>
       <a-row>
-        <p>状态&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ state }}</p>
+        <p>状态&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ status }}</p>
       </a-row>
       <a-row>
-        <p>班级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ class_number }}</p>
+        <p>班级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ class_name }}</p>
       </a-row>
       <a-row>
-        <p>寝室&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ dormitory }}</p>
+        <p>寝室&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ room }}</p>
       </a-row>
       <a-row>
         <p>省份&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ province }}</p>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { role_detail } from '@api/student'
+// import { student_get } from '@/api/student'
 import { axios } from '@/utils/request'
 export default {
   name: 'StudentDetail',
@@ -65,59 +65,38 @@ export default {
   },
   mounted (){
     this.student_number = this.$route.query.id
-    console.log(this.student_number)
+    
     var data = {student_number: this.student_number}
-    axios.get('/administrator/role/student_get', this.student_number)
+    // student_get(data)
+    //   .then(response => {
+    //     this.gender = response.data.gender
+    //     this.account = response.data.name
+    //     this.nick_name = response.data.username
+    //     this.class_name = response.data.class_name
+    //     this.room = response.data.room
+    //     this.province = response .data.province
+    //     this.status = response.data.status
+    //     })
+    //     .catch(error => {
+    //       console.error(error)
+    //     })
+    console.log(data)
+    axios.get('/administrator/role/student_get', data)
         .then(response => {
         this.gender = response.data.gender
-        this.account = response.data.username
-        this.nick_name = response.data.name
+        this.account = response.data.name
+        this.nick_name = response.data.username
         this.class_name = response.data.class_name
         this.room = response.data.room
         this.province = response .data.province
+        this.status = response.data.status
       })
       .catch(error => {
         console.error(error)
       })
-  },
-  // props: {
-  //   id: {
-  //     type: String,
-  //     default: '0'
-  //   },
-  //   sex: {
-  //     type: String,
-  //     default: '男'
-  //   },
-  //   number: {
-  //     type: String,
-  //     default: '0'
-  //   },
-  //   account: {
-  //     type: String,
-  //     default: '0'
-  //   },
-  //   nickname: {
-  //     type: String,
-  //     default: '小明'
-  //   },
-  //   state: {
-  //     type: String,
-  //     default: '正常'
-  //   },
-  //   classNumber: {
-  //     type: String,
-  //     default: '2班'
-  //   },
-  //   dormitory: {
-  //     type: String,
-  //     default: '429'
-  //   },
-  //   province: {
-  //     type: String,
-  //     default: '山东'
-  //   }
-  // },
+
+
+  }, 
   methods: {
     resetPwd(account) {
       this.account = account

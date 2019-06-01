@@ -8,7 +8,8 @@ const apis = {
   role_create: '/administrator/role/create_role',
   role_modify: '/administrator/role/modify_role',
   student_list:'/administrator/student/student_list',
-  student_delete:'/administrator/student/student_delete'
+  student_delete:'/administrator/student/student_delete',
+  student_get:'/administrator/role/student_get'
 }
 
 export function test(parameter) { // 其他文件使用本接口时调用test
@@ -57,6 +58,14 @@ export function student_delete(parameter){
         url:apis.student_delete,
         method:'post',
         data:parameter
+    })
+}
+
+export function student_get(parameter){
+    return axios({
+        url:apis.student_get.student_get,
+        method:'get',
+        params:parameter
     })
 }
   
