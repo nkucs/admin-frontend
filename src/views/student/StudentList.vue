@@ -155,7 +155,7 @@ export default {
       this.$router.push({path: '/student/detail',query: {id:studentId}})
     },
     toEdit(studentId){
-      this.$router.push({path: '/student/modification',query: {id:studentId}})
+      this.$router.push({path: '/student/modification',query: {student_number:studentId}})
     },
     onSelectChange(selectedRowKeys) {
       console.log('selectedRowKeys changed: ', selectedRowKeys)

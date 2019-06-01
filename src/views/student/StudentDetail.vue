@@ -35,10 +35,10 @@
     <a-row style="margin-top: 20px;">
       <a-col :span="20"></a-col>
       <a-col :span="2">
-        <a-button type="primary" @click="resetPwd">重置密码</a-button>
+        <a-button type="primary" >重置密码</a-button>
       </a-col>
       <a-col :span="2">
-        <a-button class="modify" type="primary" @click="resetInfo">修改信息</a-button>
+        <a-button class="modify" type="primary" @click="toEdit">修改信息</a-button>
       </a-col>
     </a-row>
   </div>
@@ -81,15 +81,18 @@ export default {
     //       console.error(error)
     //     })
     console.log(data)
-    axios.get('/administrator/role/student_get', data)
-        .then(response => {
-        this.gender = response.data.gender
-        this.account = response.data.name
-        this.nick_name = response.data.username
-        this.class_name = response.data.class_name
-        this.room = response.data.room
-        this.province = response .data.province
-        this.status = response.data.status
+    axios({
+        url: '/administrator/role/student_get', 
+        method: 'get', 
+        params: data 
+    }).then(response => {
+      this.gender = response.data.gender
+      this.account = response.data.name
+      this.nick_name = response.data.username
+      this.class_name = response.data.class_name
+      this.room = response.data.room
+      this.province = response .data.province
+      this.status = response.data.status
       })
       .catch(error => {
         console.error(error)
@@ -98,13 +101,8 @@ export default {
 
   }, 
   methods: {
-    resetPwd(account) {
-      this.account = account
-      console.log('Received Account: ', account)
-    },
-    resetInfo(account) {
-      this.account = account
-      console.log('Received Account: ', account)
+    toEdit(){
+      this.$router.push({path: '/student/modification',query: {student_number:this.student_number}})
     }
   }
 }
