@@ -16,14 +16,6 @@
       </div>
       <a-row class="my-row">
         <a-col :span=2>
-          <p>学生ID：</p>
-        </a-col>
-        <a-col :span=3>
-          <a-input ref="id_input" placeholder="请输入"></a-input>
-        </a-col>
-      </a-row>
-      <a-row class="my-row">
-        <a-col :span=2>
           <p>性别：</p>
         </a-col>
         <a-col :span=3>
