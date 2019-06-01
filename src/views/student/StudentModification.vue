@@ -99,7 +99,7 @@
       <a-col :span=20>
       </a-col>
       <a-col :span=2>
-        <a-button>取消</a-button>
+        <a-button @click="cancel">取消</a-button>
       </a-col>
       <a-col :span=2>
         <a-button type="primary">确认</a-button>
@@ -126,20 +126,58 @@ export default {
       }
   },
   mounted () {
-      this.student_number = this.$route.query.student_number
-      var data = {student_number: this.student_number}
-      axios.post('/administrator/role/student_get', data)
+    this.student_number = this.$route.query.student_number
+    var data = {student_number: this.student_number}
+    axios.post('/administrator/role/student_get', data)
+        .then(response => {
+        this.gender = response.data.name
+        this.account = response.data.username
+        this.nick_name = response.data.name
+        this.class_name = response.data.class_name
+        this.room = response.data.room
+        this.province = response .data.room
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  },
+  methods:{
+    cancel(){
+      this.$router.push({path: '/student/list'})
+    },
+    submit(){
+      var data = {
+          'name': this.nick_name,
+          'gender': this.gender,
+          'account': this.account,
+          'student_number': this.student_number,
+          'room': this.room,
+          'province': this.province,
+          'status': this.status,
+          'class_name': this.class_name,
+        }
+      axios.post('/administrator/role/student_update', data)
           .then(response => {
-          this.gender = response.data.name
-          this.account = response.data.username
-          this.nick_name = response.data.name
-          this.class_name = response.data.class_name
-          this.room = response.data.room
-          this.province = response .data.room
-        })
-        .catch(error => {
-          console.error(error)
-        })
+            console.log(response)
+            if (response.data.state_code == 0) {
+              //success
+              this.$notification['success']({
+                message: '修改成功！',
+                duration: 2
+              })
+              this.initial()
+            } else if (response.data.state_code == -1) {
+              //fail
+              this.$notification['error']({
+                message: '修改失败！',
+                description: response.error
+              })
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    }
   }
 }
 </script>
