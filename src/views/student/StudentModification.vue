@@ -6,14 +6,6 @@
       </div>
       <a-row class="my-row">
         <a-col :span=2>
-          <p>学生ID：</p>
-        </a-col>
-        <a-col :span=3>
-          <p style="margin: 0">{{ 1 }}</p>
-        </a-col>
-      </a-row>
-      <a-row class="my-row">
-        <a-col :span=2>
           <p>性别：</p>
         </a-col>
         <a-col :span=3>
@@ -28,7 +20,7 @@
           <p>编号：</p>
         </a-col>
         <a-col :span=3>
-          <a-input placeholder="请输入编号" v-model="student_number"></a-input>
+          <p style="margin: 0">{{ 123456 }}</p>
         </a-col>
       </a-row>
       <a-row class="my-row">
