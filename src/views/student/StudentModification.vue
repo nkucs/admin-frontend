@@ -6,20 +6,12 @@
       </div>
       <a-row class="my-row">
         <a-col :span=2>
-          <p>学生ID：</p>
-        </a-col>
-        <a-col :span=3>
-          <p style="margin: 0">{{ 1 }}</p>
-        </a-col>
-      </a-row>
-      <a-row class="my-row">
-        <a-col :span=2>
           <p>性别：</p>
         </a-col>
         <a-col :span=3>
-          <a-select style="width: 100%;" placeholder="请选择性别">
-            <a-select-option value="male" v-model="gender">男</a-select-option>
-            <a-select-option value="female" v-model="gender">女</a-select-option>
+          <a-select style="width: 100%;" placeholder="请选择性别" v-model="gender">
+            <a-select-option value="male" >男</a-select-option>
+            <a-select-option value="female" >女</a-select-option>
           </a-select>
         </a-col>
       </a-row>
@@ -28,7 +20,7 @@
           <p>编号：</p>
         </a-col>
         <a-col :span=3>
-          <a-input placeholder="请输入编号" v-model="student_number"></a-input>
+          <p style="margin: 0">{{ student_number }}</p>
         </a-col>
       </a-row>
       <a-row class="my-row">
@@ -52,7 +44,7 @@
           <p>状态：</p>
         </a-col>
         <a-col :span=3>
-          <a-select style="width: 100%;" placeholder="请选择状态" v-model="status">
+          <a-select style="width: 100%;" placeholder="请选择状态" v-model="user_status">
             <a-select-option value="normal">正常</a-select-option>
             <a-select-option value="error">异常</a-select-option>
             <a-select-option value="closed">关闭</a-select-option>
@@ -65,10 +57,10 @@
         </a-col>
         <a-col :span=3>
           <a-select style="width: 100%;" placeholder="请选择班级" v-model="class_name">
-            <a-select-option value="class_1">一班</a-select-option>
-            <a-select-option value="class_2">二班</a-select-option>
-            <a-select-option value="class_3">三班</a-select-option>
-            <a-select-option value="class_4">四班</a-select-option>
+            <a-select-option value="1">一班</a-select-option>
+            <a-select-option value="2">二班</a-select-option>
+            <a-select-option value="3">三班</a-select-option>
+            <a-select-option value="4">四班</a-select-option>
           </a-select>
         </a-col>
       </a-row>
@@ -99,10 +91,10 @@
       <a-col :span=20>
       </a-col>
       <a-col :span=2>
-        <a-button>取消</a-button>
+        <a-button @click="cancel">取消</a-button>
       </a-col>
       <a-col :span=2>
-        <a-button type="primary">确认</a-button>
+        <a-button type="primary" @click="submit">确认</a-button>
       </a-col>
     </a-row>
   </div>
@@ -119,27 +111,70 @@ export default {
         student_number:'',
         account:'',
         nick_name:'',
-        status:'',
+        user_status:'',
         class_name:'',
         room:'',
         province:''
       }
   },
   mounted () {
-      this.student_number = this.$route.query.student_number
-      var data = {student_number: this.student_number}
-      axios.post('/administrator/role/student_get', data)
+    this.student_number = this.$route.query.student_number
+    var data = {student_number: this.student_number}
+    axios({
+        url: '/administrator/role/student_get', 
+        method: 'get', 
+        params: data 
+    }).then(response => {
+        console.log(response.data)
+        this.gender = response.data.gender
+        this.account = response.data.username
+        this.nick_name = response.data.name
+        this.class_name = response.data.class_name
+        this.room = response.data.room
+        this.province = response.data.province
+        this.user_status =  response.data.status
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  },
+  methods:{
+    cancel(){
+      this.$router.push({path: '/student/list'})
+    },
+    submit(){
+      var data = {
+          'name': this.nick_name,
+          'gender': this.gender,
+          'account': this.account,
+          'student_number': this.student_number,
+          'room': this.room,
+          'province': this.province,
+          'status': this.user_status,
+          'class_name': this.class_name,
+        }
+      axios.post('/administrator/role/student_update', data)
           .then(response => {
-          this.gender = response.data.name
-          this.account = response.data.username
-          this.nick_name = response.data.name
-          this.class_name = response.data.class_name
-          this.room = response.data.room
-          this.province = response .data.room
-        })
-        .catch(error => {
-          console.error(error)
-        })
+            console.log(response)
+            if (response.data.state_code == 0) {
+              //success
+              this.$notification['success']({
+                message: '修改成功！',
+                duration: 2
+              })
+              this.initial()
+            } else if (response.data.state_code == -1) {
+              //fail
+              this.$notification['error']({
+                message: '修改失败！',
+                description: response.error
+              })
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    }
   }
 }
 </script>
