@@ -5,31 +5,68 @@
         <img :src="imgUrl">
       </div>
       <a-row>
-        <p>学生ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ student_number }}</p>
-      </a-row>
-      <a-row v-model="gender">
-        <p>性别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ gender }}</p>
-      </a-row>
-      <a-row>
-        <p>编号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-      </a-row>
-      <a-row>
-        <p>账号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ account }}</p>
+        <a-col :span=2>
+          <p>学生ID：</p>
+        </a-col>
+        <a-col :span=3>
+          <p>{{ student_number }}</p>
+        </a-col>
       </a-row>
       <a-row>
-        <p>昵称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ nick_name }}</p>
+        <a-col :span=2>
+          <p>性别：</p>
+        </a-col>
+        <a-col :span=3>
+          <p>{{ gender }}</p>
+        </a-col>
       </a-row>
       <a-row>
-        <p>状态&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ status }}</p>
+        <a-col :span=2>
+          <p>账号：</p>
+        </a-col>
+        <a-col :span=3>
+          <p>{{ account }}</p>
+        </a-col>
       </a-row>
       <a-row>
-        <p>班级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ class_name }}</p>
+        <a-col :span=2>
+          <p>昵称：</p>
+        </a-col>
+        <a-col :span=3>
+          <p>{{ nick_name }}</p>
+        </a-col>
       </a-row>
       <a-row>
-        <p>寝室&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ room }}</p>
+        <a-col :span=2>
+          <p>状态：</p>
+        </a-col>
+        <a-col :span=3>
+          <p>{{ status }}</p>
+        </a-col>
       </a-row>
       <a-row>
-        <p>省份&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ province }}</p>
+        <a-col :span=2>
+          <p>班级：</p>
+        </a-col>
+        <a-col :span=3>
+          <p>{{ class_name }}</p>
+        </a-col>
+      </a-row>
+      <a-row>
+        <a-col :span=2>
+          <p>房间：</p>
+        </a-col>
+        <a-col :span=3>
+          <p>{{ room }}</p>
+        </a-col>
+      </a-row>
+      <a-row>
+        <a-col :span=2>
+          <p>省份：</p>
+        </a-col>
+        <a-col :span=3>
+          <p>{{ province }}</p>
+        </a-col>
       </a-row>
     </a-card>
     <a-row style="margin-top: 20px;">
