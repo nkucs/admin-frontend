@@ -17,9 +17,6 @@
         </a-upload>
       </div>
       <a-form>
-        <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="ID">
-          <p style="margin: 0">{{ staffInfo.staffid }}</p>
-        </a-form-item>
         <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="编号">
           <a-input id="number" type="string" placeholder="请输入编号" v-model="staffInfo.number"/>
         </a-form-item>
@@ -67,17 +64,12 @@ function getBase64(img, callback) {
 export default {
   name: 'StaffCreation',
   props: {
-    id: {
-      type: String,
-      default: '0'
-    }
   },
   data() {
     return {
       loading: false,
       staffInfo: {
         imageUrl: '',
-        staffid: this.id,
         number: '',
         account: '',
         nickname: '',

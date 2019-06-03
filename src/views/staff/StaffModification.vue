@@ -17,9 +17,6 @@
         </a-upload>
       </div>
       <a-form>
-        <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="ID">
-          <p style="margin: 0">{{ staffInfo.id }}</p>
-        </a-form-item>
         <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="编号">
           <a-input id="number" type="string" placeholder="请输入编号" v-model="staffInfo.number"/>
         </a-form-item>
@@ -67,10 +64,6 @@ function getBase64(img, callback) {
 export default {
   name: 'StaffCreation',
   props: {
-    id: {
-      type: String,
-      default: '0'
-    },
     imageUrl: {
       type: String,
       default: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
@@ -105,7 +98,6 @@ export default {
       loading: false,
       staffInfo: {
         imageUrl: this.imageUrl,
-        id: this.id,
         number: this.number,
         account: this.account,
         nickname: this.nickname,
