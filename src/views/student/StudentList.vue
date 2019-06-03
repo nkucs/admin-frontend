@@ -7,17 +7,19 @@
         昵称:
         <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入" v-model="studentNickName"/>
         账号：
-        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入" v-model="studentAccount"/>状态：
-        <a-select defaultValue="normal" v-model="studentState">
+        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入" v-model="studentAccount"/>
+        状态：
+        <a-select defaultValue="normal" v-model="studentState" style="width: 5%;margin-right: 5%;">
           <a-select-option value="normal">正常</a-select-option>
           <a-select-option value="abnormal">异常</a-select-option>
           <a-select-option value="closed">关闭</a-select-option>
+          <a-select-option value="online">在线</a-select-option>
         </a-select>&nbsp&nbsp
         性别:
-        <a-select defaultValue="male" v-model="studentGender">
+        <a-select defaultValue="male" v-model="studentGender" style="width: 5%;margin-right: 5%;">
           <a-select-option value="male">男</a-select-option>
           <a-select-option value="female">女</a-select-option>
-        </a-select>&nbsp&nbsp
+        </a-select>
         <a-button type="primary" style="margin-right: 2%;" @click="inquire">查询</a-button>
         <a-button @click="cancelSearch">取消</a-button>
       </div>
