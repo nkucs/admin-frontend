@@ -58,14 +58,6 @@
         <a-col :span=3>
           <a-button type="primary" @click="importMember">+导入成员</a-button>
         </a-col>
-        <a-col :span=3>
-          <a-button
-            @click="batchDelete"
-            :disabled="!hasSelected"
-            :loading="loading">
-            批量删除
-          </a-button>
-        </a-col>
         <span v-if="hasSelected">
           <a-col :span=3>
             <p class="select-item">
@@ -78,13 +70,21 @@
         </span>
       </a-row>
       <a-row class="my-row">
+        <a-modal
+          title="确认框"
+          v-model="visibleDelete"
+          okText="移除"
+          @ok="deleteUser"
+        >
+          <p> {{ `确认移除选中的成员？` }}</p>
+        </a-modal>
         <a-table :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}" :columns="columns" :dataSource="data" class="my-table" :pagination="false">
           <span slot="action" slot-scope="text, record">
             <a href="javascript:;" @click="toDetail(record.id)">详情</a>
             <a-divider type="vertical" />
             <a href="javascript:;" @click="toEdit(record.id)">修改</a>
             <a-divider type="vertical" />
-            <a href="javascript:;">删除</a>
+            <a href="javascript:;" @click="toDelete(record.id)">删除</a>
           </span>
         </a-table>
         <div style="margin-top: 16px">
@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { role_teacher_list } from '@/api/permission'
+import { role_teacher_list, role_teacher_delete } from '@/api/permission'
 export default {
   name: 'RoleDistribution',
   data () {
@@ -136,7 +136,9 @@ export default {
       total: 10,
       userId: '',
       teacherNumber: '',
-      userName: ''
+      userName: '',
+      visibleDelete: false,
+      deleteUserId: 0
     }
   },
   computed: {
@@ -149,20 +151,47 @@ export default {
     this.makeQuery()
   },
   methods: {
-    toDetail (staffId) {
+    toDetail (userId) {
       // 参数为用户id， 非教师表内id
-      this.$router.push({path: '/staff/detail', query: {id_staff: staffId}})
+      this.$router.push({path: '/staff/detail', query: {id_staff: userId}})
     },
-    toEdit (staffId) {
-      this.$router.push({path: '/staff/modification', query: {id_staff: staffId}})
+    toEdit (userId) {
+      this.$router.push({path: '/staff/modification', query: {id_staff: userId}})
     },
-    batchDelete () {
-      this.loading = true
-      // ajax request after empty completing
-      setTimeout(() => {
-        this.loading = false
-        this.selectedRowKeys = []
-      }, 1000)
+    toDelete (userId) {
+      this.deleteUserId = Number(userId)
+      this.visibleDelete = true
+    },
+    deleteUser () {
+      const data = {
+        'distribution': []
+      }
+      data.distribution.push({})
+      data.distribution[0]['id_user'] = this.deleteUserId
+      data.distribution[0]['id_role'] = Number(this.roleId)
+      role_teacher_delete(data)
+        .then(response => {
+          if (response.data['state_code'] === 0) {
+            this.$notification['success']({
+              message: '删除成功！',
+              description: '成功删除选中成员',
+            })
+            this.makeQuery()
+          } else {
+            this.$notification['error']({
+              message: '删除失败！',
+              description: '未删除选中成员'
+            })
+          }
+        })
+        .catch(error => {
+          console.error(error)
+          this.$notification['error']({
+            message: '删除失败！',
+            description: '未删除选中成员'
+          })
+        })
+      this.visibleDelete = false
     },
     onSelectChange (selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys
@@ -200,7 +229,6 @@ export default {
       }
       role_teacher_list(data)
         .then(response => {
-          console.log(response.data)
           this.page = response.data.page
           this.total = response.data.total_pages
           this.getData(response.data.contents)
