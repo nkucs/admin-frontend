@@ -3,8 +3,8 @@
     <div class='addButton' >
       <a-button type='primary' @click="gotoCreate()"><a-icon type="plus" />新建职工</a-button>
     </div>
-    <a-table :columns="columns" :dataSource="datalist" bordered>
-      <span slot="order" slot-scope="text, record, index">{{ index + 1 }}</span>
+    <a-table :columns="columns" :dataSource="datalist" @change="handleTableChange" bordered>
+      <span slot="order" slot-scope="text, record, index">{{ (current - 1) * 10 + index + 1 }}</span>
       <span slot="status" slot-scope="text">
         <div v-if="text==='normal'"><a-badge status="success" />正常</div>
         <div v-if="text==='abnormal'"><a-badge status="error" />异常</div>
@@ -83,13 +83,14 @@
       return {
         datalist: [],
         columns,
+        current: 1,
       }
     },
     store,
     methods: {
 
       gotoCreate() {
-        this.$router.push({ path: '/staff/create' })
+        this.$router.push({ path: '/staff/creation' })
       },
 
       getData() {
@@ -114,6 +115,11 @@
         })
       },
 
+      handleTableChange (current) {
+        console.log(current)
+        this.current = current.current
+      },
+
       gotomodify(record) {
         this.$router.push({
           path: '/staff/modification',
@@ -126,6 +132,7 @@
       },
 
       deletedata(record, index) {
+        var currentIndex = (this.current - 1) * 10 + index
 
         deletestaff({
           id: record.key,
@@ -136,7 +143,7 @@
           if (response.error) {
             this.$message.error('删除职工失败' + response.error)
           } else {
-            this.datalist.splice(index, 1)
+            this.datalist.splice(currentIndex, 1)
             store.commit('addList', this.datalist)
             this.$message.success('删除职工成功')
           }
