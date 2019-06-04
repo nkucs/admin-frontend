@@ -119,6 +119,13 @@ export const asyncRouterMap = [
             hidden: true,
             component: () => import('@/views/permission/RoleModification'),
             meta: { title: '角色修改',  icon: 'dashboard', permission: ['dashboard'] }
+          },
+          {
+            path: '/permission/import',
+            name: 'roleimport',
+            hidden: true,
+            component: () => import('@/views/permission/RoleImport'),
+            meta: { title: '成员导入',  icon: 'dashboard', permission: ['dashboard'] }
           }
         ]
       }

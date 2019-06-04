@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="角色列表">
+    <a-card title="教师列表">
       <a-row class="my-row">
         <a-col :span=2>
           <p class="my-para">ID：</p>
@@ -24,30 +24,9 @@
         <a-col :span=3>
           <a-input ref="name_input" placeholder="请输入" v-model="userName"></a-input>
         </a-col>
-        <a-col :span=1>
+        <a-col :span=3>
         </a-col>
         <a-col :span=2>
-          <p class="my-para">状态：</p>
-        </a-col>
-        <a-col :span=3>
-          <a-input ref="status_input" placeholder="请输入"></a-input>
-        </a-col>
-        <a-col :span=1>
-        </a-col>
-      </a-row>
-      <a-row class="my-row">
-        <a-col :span=2>
-          <p class="my-para">性别：</p>
-        </a-col>
-        <a-col :span=3>
-          <a-select ref="gender_select" style="width: 100%;">
-            <a-select-option value="男">男</a-select-option>
-            <a-select-option value="女">女</a-select-option>
-          </a-select>
-        </a-col>
-        <a-col :span=13>
-        </a-col>
-        <a-col :span=3>
           <a-button type="primary" @click="makeQuery">查询</a-button>
         </a-col>
         <a-col :span=2>
@@ -55,17 +34,6 @@
         </a-col>
       </a-row>
       <a-row class="my-row">
-        <a-col :span=3>
-          <a-button type="primary" @click="importMember">+导入成员</a-button>
-        </a-col>
-        <a-col :span=3>
-          <a-button
-            @click="batchDelete"
-            :disabled="!hasSelected"
-            :loading="loading">
-            批量删除
-          </a-button>
-        </a-col>
         <span v-if="hasSelected">
           <a-col :span=3>
             <p class="select-item">
@@ -79,13 +47,6 @@
       </a-row>
       <a-row class="my-row">
         <a-table :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}" :columns="columns" :dataSource="data" class="my-table" :pagination="false">
-          <span slot="action" slot-scope="text, record">
-            <a href="javascript:;" @click="dataInfo(record)">详情</a>
-            <a-divider type="vertical" />
-            <a href="javascript:;">修改</a>
-            <a-divider type="vertical" />
-            <a href="javascript:;">删除</a>
-          </span>
         </a-table>
         <div style="margin-top: 16px">
           <a-pagination style="float:right" :current="page" :total="total" :pageSize="pageSize" />
@@ -96,12 +57,11 @@
 </template>
 
 <script>
-import { role_teacher_list } from '@/api/permission'
-export default {
-  name: 'RoleDistribution',
+import { role_add_teacher_list } from '@/api/permission'
+  export default {
+  name: 'RoleImport',
   data () {
     return {
-      loading: false,
       selectedRowKeys: [],
       columns: [{
         title: '角色ID',
@@ -121,17 +81,13 @@ export default {
       }, {
         title: '性别',
         dataIndex: 'gender',
-      }, {
-        title: '操作',
-        key: 'action',
-        scopedSlots: { customRender: 'action' },
       }],
       data: [],
       roleId: '',
       page: 1,
       pageSize: 10,
       total: 10,
-      userId: '',
+      userId: 0,
       teacherNumber: '',
       userName: ''
     }
@@ -146,23 +102,6 @@ export default {
     this.makeQuery()
   },
   methods: {
-    dataInfo (record) {
-      record
-    },
-    dataModify () {
-
-    },
-    dataDelete () {
-      
-    },
-    batchDelete () {
-      this.loading = true
-      // ajax request after empty completing
-      setTimeout(() => {
-        this.loading = false
-        this.selectedRowKeys = []
-      }, 1000)
-    },
     onSelectChange (selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys
     },
@@ -170,7 +109,6 @@ export default {
       this.$refs.id_input.$data.stateValue = ''
       this.$refs.account_input.$data.stateValue = ''
       this.$refs.name_input.$data.stateValue = ''
-      this.$refs.status_input.$data.stateValue = ''
     },
     clearSelection () {
       this.selectedRowKeys = []
@@ -181,22 +119,17 @@ export default {
         'page': this.page,
         'page_size': this.pageSize,
         'name': this.userName,
-        'user_id': this.userId===''?0:this.userId,
+        'user_id': this.userId,
         'teacher_number': this.teacherNumber
       }
-      role_teacher_list(data)
+      console.log('data', data)
+      role_add_teacher_list(data)
         .then(response => {
-          this.page = response.data.page
-          this.total = response.data.total_pages
-          this.data = response.data.contents
+          console.log(response.data)
         })
         .catch(error => {
           console.error(error)
         })
-    },
-    importMember () {
-      console.log(this.roleId)
-      this.$router.push({path: '/permission/import', query: {id_role: this.roleId}})
     }
   }
 }
