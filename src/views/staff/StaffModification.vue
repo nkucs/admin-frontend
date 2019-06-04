@@ -17,9 +17,6 @@
         </a-upload>
       </div>
       <a-form>
-        <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="ID">
-          <p style="margin: 0">{{ staffInfo.id }}</p>
-        </a-form-item>
         <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="编号">
           <a-input id="number" type="string" placeholder="请输入编号" v-model="staffInfo.number"/>
         </a-form-item>
