@@ -20,8 +20,8 @@
         </a-col>
         <a-col :span=3>
           <a-select style="width: 100%;" placeholder="请选择性别" v-model="gender">
-            <a-select-option value="male">男</a-select-option>
-            <a-select-option value="female">女</a-select-option>
+            <a-select-option value="男">男</a-select-option>
+            <a-select-option value="女">女</a-select-option>
           </a-select>
         </a-col>
       </a-row>
