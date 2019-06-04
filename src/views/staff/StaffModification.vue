@@ -105,7 +105,7 @@ export default {
         this.staffInfo.account=response.data.username
       })
       .catch(error => {
-        console.log(response.data)
+        console.log(error)
       })
   },
   methods: {    
@@ -138,6 +138,7 @@ export default {
               message: '创建成功！',
               duration: 2
             })
+            this.$router.push({path: '/staff/list'})
           } else if (response.data.state_code == -1) {
             this.$notification['error']({
               message: '创建失败！',
