@@ -17,9 +17,6 @@
         </a-upload>
       </div>
       <a-form>
-        <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="ID">
-          <p style="margin: 0">{{ staffInfo.staffid }}</p>
-        </a-form-item>
         <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="编号">
           <a-input id="number" type="string" placeholder="请输入编号" v-model="staffInfo.number"/>
         </a-form-item>
@@ -59,6 +56,7 @@
 </template>
 
 <script>
+import { axios } from '@/utils/request'
 function getBase64(img, callback) {
   const reader = new FileReader()
   reader.addEventListener('load', () => callback(reader.result))
@@ -109,10 +107,36 @@ export default {
       }
     },
     confirm() {
-      console.log(this.staffInfo)
+      var data = {
+        'teacher_number': this.staffInfo.number,
+        'name': this.staffInfo.nickname,
+        'gender': this.staffInfo.gender,
+        'role': this.staffInfo.role,
+        'status': this.staffInfo.status,
+        'account': this.staffInfo.account
+      }
+      console.log(data)
+      axios.post('/administrator/staff/staff_create', data)
+        .then(response => {
+          console.log(response)
+          if (response.data.state_code == 0) {
+            this.$notification['success']({
+              message: '创建成功！',
+              duration: 2
+            })
+          } else if (response.data.state_code == -1) {
+            this.$notification['error']({
+              message: '创建失败！',
+              description: response.error
+            })
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     cancel() {
-      console.log('cancel')
+      this.$router.push({path: '/staff/list'})
     },
     beforeUpload(file) {
       const isJPG = file.type === 'image/jpeg'
