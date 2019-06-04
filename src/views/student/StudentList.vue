@@ -62,7 +62,7 @@
     <template>
       <div>
         <div style="margin-bottom: 16px">
-          <a-button @click="toCreate" style="margin-right: 2%;" type="primary">新建用户</a-button>
+          <a-button @click="toCreate" style="margin-right: 2%;" type="primary">新建学生</a-button>
           <a-button style="margin-right: 2%;">批量导入</a-button>
           <a-button @click="toDelete" :disabled="!hasSelected" :loading="loading">批量删除</a-button>
           <span style="margin-left: 8px">
