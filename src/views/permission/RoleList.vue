@@ -27,7 +27,7 @@
             :disabled="!hasSelected"
             :loading="loading"
           >
-            删除成员
+            删除角色
           </a-button>
           <span style="margin-left: 8px">
             <template v-if="hasSelected">
