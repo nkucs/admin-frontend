@@ -134,11 +134,6 @@ export default {
   },
   methods: {
     cancelCreation(){
-      this.$refs.id_input.$data.stateValue = ''
-      this.$refs.account_input.$data.stateValue = ''
-      this.$refs.number_input.$data.stateValue = ''
-      this.$refs.room_input.$data.stateValue = ''
-      this.$refs.nickname_input.$data.stateValue = ''
       this.$router.push({path: '/student/list'})
     },
     submitCreation(){
