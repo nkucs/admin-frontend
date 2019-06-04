@@ -139,6 +139,7 @@ export default {
       this.$refs.number_input.$data.stateValue = ''
       this.$refs.room_input.$data.stateValue = ''
       this.$refs.nickname_input.$data.stateValue = ''
+      this.$router.push({path: '/student/list'})
     },
     submitCreation(){
       var data = {
@@ -160,6 +161,7 @@ export default {
                 message: '创建成功！',
                 duration: 2
               })
+              this.$router.push({path: '/student/list'})
             } else if (response.data.state_code == -1) {
               //fail
               this.$notification['error']({
