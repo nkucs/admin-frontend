@@ -1,28 +1,63 @@
 <template>
   <a-card :bordered="false">
-    <template>
-      <div style="margin-bottom: 16px">
-        ID:
-        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入" v-model="studentId"/>
-        昵称:
-        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入" v-model="studentNickName"/>
-        账号：
-        <a-input style="width: 10%; margin-right: 5%;" placeholder="请输入" v-model="studentAccount"/>
-        状态：
-        <a-select defaultValue="normal" v-model="studentState" style="width: 5%;margin-right: 5%;">
-          <a-select-option value="normal">正常</a-select-option>
-          <a-select-option value="abnormal">异常</a-select-option>
-          <a-select-option value="closed">关闭</a-select-option>
-          <a-select-option value="online">在线</a-select-option>
-        </a-select>&nbsp&nbsp
-        性别:
-        <a-select defaultValue="male" v-model="studentGender" style="width: 5%;margin-right: 5%;">
-          <a-select-option value="male">男</a-select-option>
-          <a-select-option value="female">女</a-select-option>
-        </a-select>
-        <a-button type="primary" style="margin-right: 2%;" @click="inquire">查询</a-button>
-        <a-button @click="cancelSearch">取消</a-button>
-      </div>
+    <template class="my-table">
+      <a-row class="my-row">
+        <a-col :span=2>
+          <p class="my-para">ID：</p>
+        </a-col>
+        <a-col :span=3>
+          <a-input placeholder="请输入" v-model="studentId"/>
+        </a-col>
+        <a-col :span=1>
+        </a-col>
+        <a-col :span=2>
+          <p class="my-para">昵称:</p>
+        </a-col>
+        <a-col :span=3>
+          <a-input placeholder="请输入" v-model="studentNickName"/>
+        </a-col>
+        <a-col :span=1>
+        </a-col>
+        <a-col :span=2>
+          <p class="my-para">账号：</p>
+        </a-col>
+        <a-col :span=3>
+          <a-input placeholder="请输入" v-model="studentAccount"/>
+        </a-col>
+        <a-col :span=1>
+        </a-col>
+        <a-col :span=2>
+          <p class="my-para">状态：</p>
+        </a-col>
+        <a-col :span=3>
+          <a-select defaultValue="normal" v-model="studentState" style="width: 100%;">
+            <a-select-option value="normal">正常</a-select-option>
+            <a-select-option value="abnormal">异常</a-select-option>
+            <a-select-option value="closed">关闭</a-select-option>
+            <a-select-option value="online">在线</a-select-option>
+          </a-select>
+        </a-col>
+        <a-col :span=1>
+        </a-col>
+      </a-row>
+      <a-row>
+        <a-col :span=2>
+          <p class="my-para">性别:</p>
+        </a-col>
+        <a-col :span=3>
+          <a-select defaultValue="male" v-model="studentGender" style="width: 100%;">
+            <a-select-option value="male">男</a-select-option>
+            <a-select-option value="female">女</a-select-option>
+          </a-select>
+        </a-col>
+        <a-col :span=13>
+        </a-col>
+        <a-col :span=3>
+          <a-button type="primary" style="width:80%" @click="inquire">查询</a-button>
+        </a-col>
+        <a-col :span=3>
+          <a-button style="width:80%" @click="cancelSearch">取消</a-button></a-col>
+      </a-row>
     </template>
     <template>
       <div>
@@ -280,3 +315,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.my-para {
+  margin-top: 5px;
+}
+
+.my-table,
+.my-row {
+  margin-top: 10px;
+}
+</style>
