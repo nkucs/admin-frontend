@@ -64,30 +64,36 @@ import { role_add_teacher_list } from '@/api/permission'
     return {
       selectedRowKeys: [],
       columns: [{
-        title: '角色ID',
+        title: '用户ID',
         dataIndex: 'id',
       }, {
-        title: '编号',
-        dataIndex: 'number',
+        title: '教师编号',
+        dataIndex: 'teacherNumber',
       }, {
-        title: '账号',
-        dataIndex: 'accountId',
+        title: '用户名',
+        dataIndex: 'userName'
       }, {
-        title: '昵称',
-        dataIndex: 'name',
+        title: '邮箱',
+        dataIndex: 'email',
+      }, {
+        title: '注册时间',
+        dataIndex: 'dateJoined',
       }, {
         title: '状态',
         dataIndex: 'status',
       }, {
         title: '性别',
         dataIndex: 'gender',
+      }, {
+        title: '上次登录时间',
+        dataIndex: 'lastLogin'
       }],
       data: [],
       roleId: '',
       page: 1,
       pageSize: 10,
       total: 10,
-      userId: 0,
+      userId: '',
       teacherNumber: '',
       userName: ''
     }
@@ -109,9 +115,27 @@ import { role_add_teacher_list } from '@/api/permission'
       this.$refs.id_input.$data.stateValue = ''
       this.$refs.account_input.$data.stateValue = ''
       this.$refs.name_input.$data.stateValue = ''
+      this.userId = ''
+      this.teacherNumber = ''
+      this.userName = ''
+      this.makeQuery()
     },
     clearSelection () {
       this.selectedRowKeys = []
+    },
+    getData (data) {
+      this.data = []
+      for (let i = 0; i < data.length; i++) {
+        this.data.push({})
+        this.data[i]['id'] = data[i].teacher.user.id
+        this.data[i]['teacherNumber'] = data[i].teacher['teacher_number']
+        this.data[i]['userName'] = data[i].teacher.user.name
+        this.data[i]['email'] = data[i].teacher.user.email
+        this.data[i]['dateJoined'] = data[i].teacher.user['date_joined'].substr(0, 10)
+        this.data[i]['status'] = data[i].teacher.user.user_status.name
+        this.data[i]['gender'] = data[i].teacher.user.gender.name
+        this.data[i]['lastLogin'] = data[i].teacher.user['last_login'].substr(0, 10)
+      }
     },
     makeQuery () {
       const data = {
@@ -119,13 +143,15 @@ import { role_add_teacher_list } from '@/api/permission'
         'page': this.page,
         'page_size': this.pageSize,
         'name': this.userName,
-        'user_id': this.userId,
+        'user_id': this.userId===''?0:this.userId,
         'teacher_number': this.teacherNumber
       }
       console.log('data', data)
       role_add_teacher_list(data)
         .then(response => {
-          console.log(response.data)
+          this.page = response.data.page
+          this.total = response.data.total_pages
+          this.getData(response.data.contents)
         })
         .catch(error => {
           console.error(error)
