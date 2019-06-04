@@ -87,10 +87,12 @@ import { role_add_teacher_list, role_teacher_add } from '@/api/permission'
       }, {
         title: '性别',
         dataIndex: 'gender',
-      }, {
-        title: '上次登录时间',
-        dataIndex: 'lastLogin'
-      }],
+      }, 
+      // {
+      //   title: '上次登录时间',
+      //   dataIndex: 'lastLogin'
+      // }
+      ],
       data: [],
       roleId: '',
       page: 1,
@@ -137,7 +139,8 @@ import { role_add_teacher_list, role_teacher_add } from '@/api/permission'
         this.data[i]['dateJoined'] = data[i].teacher.user['date_joined'].substr(0, 10)
         this.data[i]['status'] = data[i].teacher.user.user_status.name
         this.data[i]['gender'] = data[i].teacher.user.gender.name
-        this.data[i]['lastLogin'] = data[i].teacher.user['last_login'].substr(0, 10)
+        // this.data[i]['lastLogin'] = data[i].teacher.user['last_login'].substr(0, 10)
+        //后端暂未返回lastLogin数据，暂时删除该列
       }
     },
     makeQuery () {
