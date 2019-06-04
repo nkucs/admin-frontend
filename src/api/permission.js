@@ -8,7 +8,11 @@ const apis = {
   role_delete: '/administrator/role/role_delete',
   role_detail: '/administrator/role/role_detail',
   role_create: '/administrator/role/create_role',
-  role_modify: '/administrator/role/modify_role'
+  role_modify: '/administrator/role/modify_role',
+  role_teacher_list: '/administrator/role/role-teacher-list',
+  role_add_teacher_list: '/administrator/role/role-add-teacher-list',
+  role_teacher_add: '/administrator/role/role-teacher-add',
+  role_teacher_delete: '/administrator/role/role-teacher-delete'
 }
 
 export function test(parameter) { // 其他文件使用本接口时调用test
@@ -58,4 +62,36 @@ export function role_detail(parameter) { // 其他文件使用本接口时调用
         method: 'get', // 一般 get 或 post
         params: parameter // get方法
     })
+}
+
+export function role_teacher_list(parameter) { // 其他文件使用本接口时调用role_teacher_list
+  return axios({
+    url: apis.role_teacher_list, // 此处url为上面定义的url
+    method: 'get', // 一般 get 或 post
+    params: parameter // get方法
+  })
+}
+
+export function role_add_teacher_list(parameter) { // 其他文件使用本接口时调用role_add_teacher_list
+  return axios({
+    url: apis.role_add_teacher_list, // 此处url为上面定义的url
+    method: 'get', // 一般 get 或 post
+    params: parameter // get方法
+  })
+}
+
+export function role_teacher_add(parameter) { // 其他文件使用本接口时调用role_teacher_add
+  return axios({
+    url: apis.role_teacher_add, // 此处url为上面定义的url
+    method: 'post', // 一般 get 或 post
+    data: parameter // post方法
+  })
+}
+
+export function role_teacher_delete(parameter) { // 其他文件使用本接口时调用role_teacher_delete
+  return axios({
+    url: apis.role_teacher_delete, // 此处url为上面定义的url
+    method: 'post', // 一般 get 或 post
+    data: parameter // delete方法
+  })
 }
