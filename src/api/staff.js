@@ -7,6 +7,7 @@ const apis = {
   getstafflist: '/administrator/staff/staff_list',
   deletestaff: '/administrator/staff/delete_staff',
   getstaffdetail: '/administrator/staff/staff_details',
+  resetpwd: '/administrator/staff/reset_pwd'
 }
 
 export function test(parameter) { // 其他文件使用本接口时调用test
@@ -42,4 +43,10 @@ export function deletestaff(parameter) {
   })
 }
 
-  
+export function resetpwd(parameter) {
+  return axios({
+    url: apis.resetpwd, 
+    method: 'post', 
+    data: parameter
+  })
+}  
