@@ -138,6 +138,7 @@ import { role_detail, role_modify } from '@/api/permission'
                 message: '修改成功！',
                 duration: 2
               })
+              this.$router.push({path: '/permission/list'})
             } else if (response.data.state_code == -1) {
               //fail
               this.$notification['error']({
