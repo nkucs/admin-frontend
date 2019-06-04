@@ -162,7 +162,7 @@ export default {
                 message: '修改成功！',
                 duration: 2
               })
-              this.initial()
+              this.$router.push({path: '/student/list'})
             } else if (response.data.state_code == -1) {
               //fail
               this.$notification['error']({
