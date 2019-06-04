@@ -80,8 +80,7 @@ export default {
         account: '',
         nickname: '',
         gender: '男性',
-        status: '正常',
-        role: 'admin1'
+        status: '正常'
       },
       labelCol: {
         xs: { span: 24 },
@@ -111,7 +110,6 @@ export default {
         'teacher_number': this.staffInfo.number,
         'name': this.staffInfo.nickname,
         'gender': this.staffInfo.gender,
-        'role': this.staffInfo.role,
         'status': this.staffInfo.status,
         'account': this.staffInfo.account
       }

@@ -124,7 +124,6 @@ export default {
         'teacher_number': this.staffInfo.number,
         'name': this.staffInfo.nickname,
         'gender': this.staffInfo.gender,
-        'role': this.staffInfo.role,
         'status': this.staffInfo.status,
         'account': this.staffInfo.account
       }
@@ -133,13 +132,13 @@ export default {
           console.log(response)
           if (response.data.state_code == 0) {
             this.$notification['success']({
-              message: '创建成功！',
+              message: '修改成功！',
               duration: 2
             })
             this.$router.push({path: '/staff/list'})
           } else if (response.data.state_code == -1) {
             this.$notification['error']({
-              message: '创建失败！',
+              message: '修改失败！',
               description: response.error
             })
           }
