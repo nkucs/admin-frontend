@@ -160,7 +160,6 @@ export default {
                 message: '创建成功！',
                 duration: 2
               })
-              this.initial()
             } else if (response.data.state_code == -1) {
               //fail
               this.$notification['error']({
