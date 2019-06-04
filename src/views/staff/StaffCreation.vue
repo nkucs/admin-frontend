@@ -39,13 +39,13 @@
             <a-select-option value="关闭">关闭</a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="角色">
+        <!-- <a-form-item :label-col="labelCol" :wrapper-col="wrapperCol" label="角色">
           <a-select class="test" style="width: 100%" v-model="staffInfo.role">
             <a-select-option value="admin1">admin1</a-select-option>
             <a-select-option value="admin2">admin2</a-select-option>
             <a-select-option value="teacher1">teacher1</a-select-option>
           </a-select>
-        </a-form-item>
+        </a-form-item> -->
       </a-form>
     </a-card>
     <div style="float: right; margin-top: 20px">
