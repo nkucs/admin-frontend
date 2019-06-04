@@ -102,6 +102,7 @@ import { role_create } from '@/api/permission'
         this.roleName = '',
         this.roleDescription = '',
         this.rolePermission = []
+        this.$router.push({path: '/permission/list'})
       },
       submit () {
         var permission = []

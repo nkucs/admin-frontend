@@ -20,8 +20,8 @@
         </a-col>
         <a-col :span=3>
           <a-select style="width: 100%;" placeholder="请选择性别" v-model="gender">
-            <a-select-option value="male">男</a-select-option>
-            <a-select-option value="female">女</a-select-option>
+            <a-select-option value="男">男</a-select-option>
+            <a-select-option value="女">女</a-select-option>
           </a-select>
         </a-col>
       </a-row>
@@ -134,11 +134,7 @@ export default {
   },
   methods: {
     cancelCreation(){
-      this.$refs.id_input.$data.stateValue = ''
-      this.$refs.account_input.$data.stateValue = ''
-      this.$refs.number_input.$data.stateValue = ''
-      this.$refs.room_input.$data.stateValue = ''
-      this.$refs.nickname_input.$data.stateValue = ''
+      this.$router.push({path: '/student/list'})
     },
     submitCreation(){
       var data = {
@@ -160,7 +156,7 @@ export default {
                 message: '创建成功！',
                 duration: 2
               })
-              this.initial()
+              this.$router.push({path: '/student/list'})
             } else if (response.data.state_code == -1) {
               //fail
               this.$notification['error']({
