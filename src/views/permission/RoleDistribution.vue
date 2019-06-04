@@ -11,7 +11,7 @@
         <a-col :span=1>
         </a-col>
         <a-col :span=2>
-          <p class="my-para">账号：</p>
+          <p class="my-para">教师编号：</p>
         </a-col>
         <a-col :span=3>
           <a-input ref="account_input" placeholder="请输入" v-model="teacherNumber"></a-input>
@@ -19,7 +19,7 @@
         <a-col :span=1>
         </a-col>
         <a-col :span=2>
-          <p class="my-para">昵称：</p>
+          <p class="my-para">用户名：</p>
         </a-col>
         <a-col :span=3>
           <a-input ref="name_input" placeholder="请输入" v-model="userName"></a-input>
@@ -80,9 +80,9 @@
       <a-row class="my-row">
         <a-table :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}" :columns="columns" :dataSource="data" class="my-table" :pagination="false">
           <span slot="action" slot-scope="text, record">
-            <a href="javascript:;" @click="dataInfo(record)">详情</a>
+            <a href="javascript:;" @click="toDetail(record.id)">详情</a>
             <a-divider type="vertical" />
-            <a href="javascript:;">修改</a>
+            <a href="javascript:;" @click="toEdit(record.id)">修改</a>
             <a-divider type="vertical" />
             <a href="javascript:;">删除</a>
           </span>
@@ -104,17 +104,20 @@ export default {
       loading: false,
       selectedRowKeys: [],
       columns: [{
-        title: '角色ID',
+        title: '用户ID',
         dataIndex: 'id',
       }, {
-        title: '编号',
-        dataIndex: 'number',
+        title: '教师编号',
+        dataIndex: 'teacherNumber',
       }, {
-        title: '账号',
-        dataIndex: 'accountId',
+        title: '用户名',
+        dataIndex: 'userName'
       }, {
-        title: '昵称',
-        dataIndex: 'name',
+        title: '邮箱',
+        dataIndex: 'email',
+      }, {
+        title: '注册时间',
+        dataIndex: 'dateJoined',
       }, {
         title: '状态',
         dataIndex: 'status',
@@ -146,14 +149,12 @@ export default {
     this.makeQuery()
   },
   methods: {
-    dataInfo (record) {
-      record
+    toDetail (staffId) {
+      // 参数为用户id， 非教师表内id
+      this.$router.push({path: '/staff/detail', query: {id_staff: staffId}})
     },
-    dataModify () {
-
-    },
-    dataDelete () {
-      
+    toEdit (staffId) {
+      this.$router.push({path: '/staff/modification', query: {id_staff: staffId}})
     },
     batchDelete () {
       this.loading = true
@@ -175,6 +176,19 @@ export default {
     clearSelection () {
       this.selectedRowKeys = []
     },
+    getData (data) {
+      this.data = []
+      for (let i = 0; i < data.length; i++) {
+        this.data.push({})
+        this.data[i]['id'] = data[i].teacher.user.id
+        this.data[i]['teacherNumber'] = data[i].teacher['teacher_number']
+        this.data[i]['userName'] = data[i].teacher.user.name
+        this.data[i]['email'] = data[i].teacher.user.email
+        this.data[i]['dateJoined'] = data[i].teacher.user['date_joined'].substr(0, 10)
+        this.data[i]['status'] = data[i].teacher.user.user_status.name
+        this.data[i]['gender'] = data[i].teacher.user.gender.name
+      }
+    },
     makeQuery () {
       const data = {
         'id': this.roleId,
@@ -186,9 +200,10 @@ export default {
       }
       role_teacher_list(data)
         .then(response => {
+          console.log(response.data)
           this.page = response.data.page
           this.total = response.data.total_pages
-          this.data = response.data.contents
+          this.getData(response.data.contents)
         })
         .catch(error => {
           console.error(error)

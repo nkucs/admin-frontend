@@ -11,7 +11,7 @@
         <a-col :span=1>
         </a-col>
         <a-col :span=2>
-          <p class="my-para">账号：</p>
+          <p class="my-para">教师编号：</p>
         </a-col>
         <a-col :span=3>
           <a-input ref="account_input" placeholder="请输入" v-model="teacherNumber"></a-input>
@@ -19,7 +19,7 @@
         <a-col :span=1>
         </a-col>
         <a-col :span=2>
-          <p class="my-para">昵称：</p>
+          <p class="my-para">用户名：</p>
         </a-col>
         <a-col :span=3>
           <a-input ref="name_input" placeholder="请输入" v-model="userName"></a-input>
@@ -43,6 +43,9 @@
           <a-col :span=3>
             <p class="clear-item" @click="clearSelection">清空</p>
           </a-col>
+          <a-col :span=2>
+            <a-button type="primary" @click="importUser">导入</a-button>
+          </a-col>
         </span>
       </a-row>
       <a-row class="my-row">
@@ -57,7 +60,7 @@
 </template>
 
 <script>
-import { role_add_teacher_list } from '@/api/permission'
+import { role_add_teacher_list, role_teacher_add } from '@/api/permission'
   export default {
   name: 'RoleImport',
   data () {
@@ -146,7 +149,6 @@ import { role_add_teacher_list } from '@/api/permission'
         'user_id': this.userId===''?0:this.userId,
         'teacher_number': this.teacherNumber
       }
-      console.log('data', data)
       role_add_teacher_list(data)
         .then(response => {
           this.page = response.data.page
@@ -155,6 +157,30 @@ import { role_add_teacher_list } from '@/api/permission'
         })
         .catch(error => {
           console.error(error)
+        })
+    },
+    importUser () {
+      const data = {
+        'distribution': []
+      }
+      const roleId = Number(this.roleId)
+      for (let i = 0; i < this.selectedRowKeys.length; i++) {
+        data.distribution.push({})
+        data.distribution[i]['id_user'] = Number(this.data[this.selectedRowKeys[i]].id)
+        data.distribution[i]['id_role'] = roleId
+      }
+      role_teacher_add(data)
+        .then(response => {
+          if (response.data['state_code'] === 0) {
+            this.$router.push({path: '/permission/distribution', query: {id_role: this.roleId}})
+          }
+        })
+        .catch(error => {
+          console.error(error)
+          this.$notification['error']({
+            message: '导入失败！',
+            description: '未导入选中的所有成员'
+          })
         })
     }
   }
