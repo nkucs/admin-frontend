@@ -59,59 +59,27 @@
 </template>
 
 <script>
+import { axios } from '@/utils/request'
 function getBase64(img, callback) {
   const reader = new FileReader()
   reader.addEventListener('load', () => callback(reader.result))
   reader.readAsDataURL(img)
 }
 export default {
-  name: 'StaffCreation',
-  props: {
-    id: {
-      type: String,
-      default: '0'
-    },
-    imageUrl: {
-      type: String,
-      default: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-    },
-    number: {
-      type: Number,
-      default: 123456
-    },
-    account: {
-      type: String,
-      default: 'nankai123'
-    },
-    nickname: {
-      type: String,
-      default: 'nankai'
-    },
-    gender: {
-      type: String,
-      default: '男性'
-    },
-    status: {
-      type: String,
-      default: '正常'
-    },
-    role: {
-      type: String,
-      default: 'admin1'
-    }
-  },
+  name: 'StaffUpdate',
+  props: {},
   data() {
     return {
       loading: false,
       staffInfo: {
-        imageUrl: this.imageUrl,
-        id: this.id,
-        number: this.number,
-        account: this.account,
-        nickname: this.nickname,
-        gender: this.gender,
-        status: this.status,
-        role: this.role
+        imageUrl: '',
+        staffid: this.id,
+        number: '',
+        account: '',
+        nickname: '',
+        gender: '',
+        status: '',
+        role: ''
       },
       labelCol: {
         xs: { span: 24 },
@@ -123,7 +91,27 @@ export default {
       }
     }
   },
-  methods: {
+  mounted () {
+    this.teacher_number = this.$route.query.staff
+    var data = {teacher_number: this.teacher_number}
+    axios({
+        url: '/administrator/staff/staff_get', 
+        method: 'get', 
+        params: data 
+    }).then(response => {
+        console.log(response)       
+        this.staffInfo.number=response.data.teacher_number
+        this.staffInfo.nickname=response.data.name
+        this.staffInfo.gender=response.data.gender
+        this.staffInfo.role=response.data.role
+        this.staffInfo.status=response.data.status
+        this.staffInfo.account=response.data.username
+      })
+      .catch(error => {
+        console.log(response.data)
+      })
+  },
+  methods: {    
     handleAvatarChange(info) {
       if (info.file.status === 'uploading') {
         this.loading = true
@@ -137,10 +125,35 @@ export default {
       }
     },
     confirm() {
-      console.log(this.staffInfo)
+       var data = {
+        'teacher_number': this.staffInfo.number,
+        'name': this.staffInfo.nickname,
+        'gender': this.staffInfo.gender,
+        'role': this.staffInfo.role,
+        'status': this.staffInfo.status,
+        'account': this.staffInfo.account
+      }
+      axios.post('/administrator/staff/staff_update', data)
+        .then(response => {
+          console.log(response)
+          if (response.data.state_code == 0) {
+            this.$notification['success']({
+              message: '创建成功！',
+              duration: 2
+            })
+          } else if (response.data.state_code == -1) {
+            this.$notification['error']({
+              message: '创建失败！',
+              description: response.error
+            })
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     cancel() {
-      console.log('cancel')
+      this.$router.push({path: '/staff/list'})
     },
     beforeUpload(file) {
       const isJPG = file.type === 'image/jpeg'
