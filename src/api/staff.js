@@ -7,6 +7,9 @@ const apis = {
   getstafflist: '/administrator/staff/staff_list',
   deletestaff: '/administrator/staff/delete_staff',
   getstaffdetail: '/administrator/staff/staff_details',
+  staff_create: '/administrator/staff/staff_create',
+  staff_info: '/administrator/staff/staff_get',
+  staff_modify: '/administrator/staff/staff_update'
 }
 
 export function test(parameter) { // 其他文件使用本接口时调用test
@@ -39,6 +42,30 @@ export function deletestaff(parameter) {
     url: apis.deletestaff, 
     method: 'post',
     data: parameter 
+  })
+}
+
+export function staff_info(parameter) {
+  return axios({
+      url: apis.staff_info,
+      method: 'get',
+      data: parameter
+  })
+}
+
+export function staff_create(parameter) {
+  return axios({
+      url: apis.staff_create,
+      method: 'post',
+      data: parameter
+  })
+}
+
+export function staff_modify(parameter) {
+  return axios({
+      url: apis.staff_modify,
+      method: 'post',
+      data: parameter
   })
 }
 
