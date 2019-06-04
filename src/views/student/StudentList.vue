@@ -46,8 +46,8 @@
         </a-col>
         <a-col :span=3>
           <a-select defaultValue="male" v-model="studentGender" style="width: 100%;">
-            <a-select-option value="male">男</a-select-option>
-            <a-select-option value="female">女</a-select-option>
+            <a-select-option value="男">男</a-select-option>
+            <a-select-option value="女">女</a-select-option>
           </a-select>
         </a-col>
         <a-col :span=13>
