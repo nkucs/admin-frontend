@@ -6,7 +6,7 @@
           <p class="my-para">ID：</p>
         </a-col>
         <a-col :span=3>
-          <a-input ref="id_input" placeholder="请输入"></a-input>
+          <a-input ref="id_input" placeholder="请输入" v-model="userId"></a-input>
         </a-col>
         <a-col :span=1>
         </a-col>
@@ -14,7 +14,7 @@
           <p class="my-para">账号：</p>
         </a-col>
         <a-col :span=3>
-          <a-input ref="account_input" placeholder="请输入"></a-input>
+          <a-input ref="account_input" placeholder="请输入" v-model="teacherNumber"></a-input>
         </a-col>
         <a-col :span=1>
         </a-col>
@@ -22,7 +22,7 @@
           <p class="my-para">昵称：</p>
         </a-col>
         <a-col :span=3>
-          <a-input ref="name_input" placeholder="请输入"></a-input>
+          <a-input ref="name_input" placeholder="请输入" v-model="userName"></a-input>
         </a-col>
         <a-col :span=1>
         </a-col>
@@ -78,7 +78,7 @@
         </span>
       </a-row>
       <a-row class="my-row">
-        <a-table :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}" :columns="columns" :dataSource="data" class="my-table">
+        <a-table :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}" :columns="columns" :dataSource="data" class="my-table" :pagination="false">
           <span slot="action" slot-scope="text, record">
             <a href="javascript:;" @click="dataInfo(record)">详情</a>
             <a-divider type="vertical" />
@@ -87,12 +87,16 @@
             <a href="javascript:;">删除</a>
           </span>
         </a-table>
+        <div style="margin-top: 16px">
+          <a-pagination style="float:right" :current="page" :total="total" :pageSize="pageSize" />
+        </div>
       </a-row>
     </a-card>
   </div>
 </template>
 
 <script>
+import { role_teacher_list } from '@/api/permission'
 export default {
   name: 'RoleDistribution',
   data () {
@@ -122,37 +126,24 @@ export default {
         key: 'action',
         scopedSlots: { customRender: 'action' },
       }],
-      data: [{
-        key: 1,
-        id: 1,
-        number: 1,
-        accountId: 10,
-        name: 'John Brown',
-        status: 'login',
-        gender: '男',
-      }, {
-        key: 2,
-        id: 1,
-        number: 1,
-        accountId: 10,
-        name: 'John Brown',
-        status: 'login',
-        gender: '男',
-      }, {
-        key: 3,
-        id: 1,
-        number: 1,
-        accountId: 10,
-        name: 'John Brown',
-        status: 'login',
-        gender: '男',
-      }]
+      data: [],
+      roleId: '',
+      page: 1,
+      pageSize: 10,
+      total: 10,
+      userId: 0,
+      teacherNumber: '',
+      userName: ''
     }
   },
   computed: {
     hasSelected() {
       return this.selectedRowKeys.length > 0
     }
+  },
+  mounted () {
+    this.roleId = this.$route.query.id_role
+    this.makeQuery()
   },
   methods: {
     dataInfo (record) {
@@ -185,7 +176,22 @@ export default {
       this.selectedRowKeys = []
     },
     makeQuery () {
-
+      const data = {
+        'id': this.roleId,
+        'page': this.page,
+        'page_size': this.pageSize,
+        'name': this.userName,
+        'user_id': this.userId,
+        'teacher_number': this.teacherNumber
+      }
+      console.log('data', data)
+      role_teacher_list(data)
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.error(error)
+        })
     },
     importMember () {
       

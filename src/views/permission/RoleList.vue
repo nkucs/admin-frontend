@@ -57,6 +57,8 @@
             <a-divider type="vertical" />
             <a href="javascript:;" @click="toEdit(record.id_role)">修改</a>
             <a-divider type="vertical" />
+            <a href="javascript:;" @click="toDistribute(record.id_role)">分配</a>
+            <a-divider type="vertical" />
             <a href="javascript:;" @click="toDeleteOne(record.id_role)">删除</a>
           </span>
         </a-table>
@@ -120,6 +122,10 @@ export default {
     toDetail (roleId) {
       console.log(roleId)
       this.$router.push({path: '/permission/detail', query: {id_role: roleId}})
+    },
+    toDistribute (roleId) {
+      console.log(roleId)
+      this.$router.push({path: '/permission/distribution', query: {id_role: roleId}})
     },
     toEdit (roleId) {
       this.$router.push({path: '/permission/modification', query: {id_role: roleId}})
